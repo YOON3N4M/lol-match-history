@@ -50,6 +50,7 @@ async function getUserDocumentByRiotId(riotId: RiotId) {
   });
 
   if (result.length > 0) {
+    console.log(result);
     return result;
   } else {
     return null;
@@ -87,11 +88,13 @@ async function postUserDocumentOnDB(
     (league) => league.queueType === "RANKED_FLEX_SR"
   );
 
+  console.log(riotAccount);
+
   const userDocumentRef: UserDocument = {
     accountId: summonerInfo.accountId,
     id: summonerInfo.id,
-    name: summonerInfo.name,
-    nameRe: summonerInfo.name.replace(/ /g, ""),
+    name: riotAccount.gameName,
+    nameRe: riotAccount.gameName.replace(/ /g, ""),
     profileIconId: summonerInfo.profileIconId,
     puuid: summonerInfo.puuid,
     summonerLevel: summonerInfo.summonerLevel,
