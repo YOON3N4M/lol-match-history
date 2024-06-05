@@ -1,32 +1,37 @@
-import Header from "@/components/layout/Header";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import SummonerBody from "@/containers/sumonners/summonerBody/SummonerBody";
 import SummonerHead from "@/containers/sumonners/summonersHead/SummonerHead";
 import useSummoner from "@/hooks/useSummoner";
 import { useSummonerActions, useUserDocument } from "@/store/summonersStore";
-import { UserDocument } from "@/types/types";
 import { extractSummonerName, handleRiotId } from "@/utils";
-import { firebaseAPI } from "@/service/firebase";
-import { Box, Center, Flex } from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function ContainerSummoners() {
   const pathname = usePathname();
 
   const { refreshActions, isFetchLoading } = useSummoner();
+
   const userDocument = useUserDocument();
   const { setRiotId, setUserDocument, setMatchHistory } = useSummonerActions();
 
-  function extractRiotId() {
+  function extractRiotIdFromUrl() {
     const sumonnerName = extractSummonerName(pathname);
     const riotId = handleRiotId(sumonnerName, "-");
-    setRiotId(riotId);
+    return riotId;
+  }
+
+  function initState() {
+    setRiotId(null);
+    setUserDocument(null);
+    setMatchHistory(null);
   }
 
   useEffect(() => {
     if (!pathname) return;
-    extractRiotId();
+    initState();
+    setRiotId(extractRiotIdFromUrl());
   }, [pathname]);
 
   useEffect(() => {
@@ -35,9 +40,7 @@ export default function ContainerSummoners() {
 
   useEffect(() => {
     return () => {
-      setRiotId(null);
-      setUserDocument(null);
-      setMatchHistory(null);
+      initState();
     };
   }, []);
 
