@@ -5,8 +5,8 @@ import {
   RiotId,
   UserDocument,
 } from "@/types/types";
-import { CompareResult, firebaseAPI } from "@/utils/firebaseApi";
-import { riotApi } from "@/utils/riotApi";
+import { CompareResult, firebaseAPI } from "@/service/firebase";
+import { riotApi } from "@/service/riot";
 import React, { useEffect, useState } from "react";
 
 type UserValid = "initial" | "valid" | "inValid";

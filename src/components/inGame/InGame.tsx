@@ -1,6 +1,6 @@
 import { API_KEY } from "@/constants";
 import { refineInGameInfo } from "@/utils";
-import { riotApi } from "@/utils/riotApi";
+import { riotApi } from "@/service/riot";
 import axios from "axios";
 import { useEffect, useState } from "react";
 

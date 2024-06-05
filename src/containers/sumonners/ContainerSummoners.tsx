@@ -6,7 +6,7 @@ import useSummoner from "@/hooks/useSummoner";
 import { useSummonerActions, useUserDocument } from "@/store/summonersStore";
 import { UserDocument } from "@/types/types";
 import { extractSummonerName, handleRiotId } from "@/utils";
-import { firebaseAPI } from "@/utils/firebaseApi";
+import { firebaseAPI } from "@/service/firebase";
 import { Box, Center, Flex } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";

@@ -20,7 +20,7 @@ export default function SummonerBody() {
     if (!matchHistory) return;
     if (!userDocument) return;
     const mostPlay = getMostChampions(matchHistory, userDocument?.name);
-    console.log(mostPlay);
+
     setMostPlayChampions(mostPlay);
   }, [matchHistory]);
 

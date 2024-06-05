@@ -1,5 +1,5 @@
 import { RiotId } from "@/types/types";
-import { riotApi } from "@/utils/riotApi";
+import { riotApi } from "@/service/riot";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
