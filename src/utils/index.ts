@@ -685,14 +685,12 @@ export function refineInGameInfo(inGameInfo: InGameInfo) {
 
 export function getMostChampions(
   matchHistory: MatchInfoObj[] | null,
-  userDocumentName: string
+  puuid: string
 ) {
   if (!matchHistory) return;
   const filtered = matchHistory?.map(
     (game) =>
-      game?.info.participants.filter(
-        (player: any) => player.summonerName === userDocumentName
-      )[0]
+      game?.info.participants.filter((player: any) => player.puuid === puuid)[0]
   );
 
   const removeUndefined: any = filtered?.filter((item) => item !== undefined);

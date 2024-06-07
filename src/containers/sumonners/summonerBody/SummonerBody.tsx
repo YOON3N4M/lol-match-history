@@ -19,7 +19,9 @@ export default function SummonerBody() {
   useEffect(() => {
     if (!matchHistory) return;
     if (!userDocument) return;
-    const mostPlay = getMostChampions(matchHistory, userDocument?.name);
+    const mostPlay = getMostChampions(matchHistory, userDocument?.puuid);
+    console.log(matchHistory, userDocument?.name);
+    console.log(mostPlay);
 
     setMostPlayChampions(mostPlay);
   }, [matchHistory]);
