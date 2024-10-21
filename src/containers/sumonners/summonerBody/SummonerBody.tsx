@@ -29,7 +29,7 @@ export default function SummonerBody() {
   return (
     <Flex flexDirection={"column"} w="100%">
       <Flex
-        w={{ pc: "1080px" }}
+        minW={{ pc: "1024px" }}
         maxW="1080px"
         m={{ pc: "0 auto" }}
         mt={{ pc: 2 }}

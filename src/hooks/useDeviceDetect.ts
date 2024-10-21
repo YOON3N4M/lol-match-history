@@ -21,8 +21,8 @@ function useDeviceDetect(): UseDeviceDetect {
 
       setDeviceDetect((prev) => {
         const newState: DeviceDetect = {
-          isPc: width >= 768,
-          isMobile: width < 768,
+          isPc: width >= 1024,
+          isMobile: width < 1024,
         };
         const isDeviceChanged = Object.keys(prev).find(
           (key) => prev[key] !== newState[key]

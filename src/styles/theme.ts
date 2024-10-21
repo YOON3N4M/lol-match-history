@@ -2,7 +2,7 @@ import { extendTheme } from "@chakra-ui/react";
 
 const breakpoints = {
   mo: "0px",
-  pc: "768px",
+  pc: "1024px",
 };
 const colors = {
   keyColor: {
