@@ -1,4 +1,4 @@
-# lol-statistics-typescript
+# lol-match-history
 ![image](https://github.com/YOON3N4M/lol-statistics-typescript/assets/115640584/fa7c9dd4-04e8-47d0-99c2-c3fcded98785)
 
 라이엇 게임즈에서 제공하는 API를 활용해 리그오브레전드 플레이어의 정보를 조회 할 수 있습니다. <br/>
