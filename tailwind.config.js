@@ -25,6 +25,7 @@ module.exports = {
       colors: {
         "opgg-blue": "#5383e8",
         "opgg-gray-text": "#9AA4AF",
+        "level-bg": "#1c1c1f",
       },
     },
   },
