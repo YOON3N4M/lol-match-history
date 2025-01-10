@@ -11,7 +11,7 @@ function MainSearchSection() {
     <div className="mt-xxxl flex w-[800px] pr-xl h-[60px] bg-white rounded-[30px] shadow-md justify-between items-center mx-auto ">
       <div className="basis-1/5 h-full pl-[16px] flex flex-col justify-center">
         <label className="text-xs font-bold">Region</label>
-        <span className="text-[#9AA4AF] text-sm ">Korea</span>
+        <span className="text-opgg-gray-text text-sm ">Korea</span>
       </div>
       <div className="border-r h-[40%] mr-[32px]" />
       <div className="flex flex-1 flex-col h-full justify-center">
@@ -34,11 +34,11 @@ function MainSearchSection() {
           {/* 검색창 툴팁 영역 */}
           {isTooltipOn && (
             <div className="absolute top-full w-full bg-white border shadow-md z-[100] mt-md p-md">
-              <p className="text-sm text-[#9AA4AF] font-bold">
+              <p className="text-sm text-opgg-gray-text font-bold">
                 현재 대소문자를 정확히 구분하여 입력해야만 정상적인 검색이
                 가능합니다.
               </p>
-              <span className="text-sm bg-[text-[#9AA4AF] p-xxs rounded-md font-semibold">
+              <span className="text-sm bg-[text-opgg-gray-text p-xxs rounded-md font-semibold">
                 {usernameWithRiotId}
               </span>
             </div>
@@ -48,7 +48,7 @@ function MainSearchSection() {
       <button
         type="submit"
         form="search-input"
-        className="font-bold text-[#5383e8] text-xl"
+        className="font-bold text-opgg-blue text-xl"
       >
         .GG
       </button>

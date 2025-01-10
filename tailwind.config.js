@@ -1,24 +1,14 @@
-const config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/containers/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
-      borderRadius: {
-        md: "4px",
+      fontFamily: {
+        pretendard: ["var(--font-pretendard)"],
       },
       screens: {
         mo: { max: "1023px" },
         pc: "1024px",
-      },
-      colors: {
-        "opgg-blue": "#5383e8",
-      },
-      fontFamily: {
-        pretendard: ["var(--font-pretendard)"],
-        caslon: ["var(--font-caslon)"],
       },
       spacing: {
         xxxs: "2px",
@@ -32,11 +22,11 @@ const config = {
         xxxl: "40px",
         nav: "45px",
       },
-      colors: {},
-      keyframes: {},
-      animation: {},
+      colors: {
+        "opgg-blue": "#5383e8",
+        "opgg-gray-text": "#9AA4AF",
+      },
     },
   },
   plugins: [],
 };
-export default config;
