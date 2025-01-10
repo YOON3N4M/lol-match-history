@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+}
+
+* {
+}
+
+.visually-hidden {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
+  clip-path: inset(0px 0px 99.9% 99.9%);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  padding: 0;
+  border: 0;
+}
+
+main {
+}
+
+@layer base {
+}
+
+@layer utilities {
+  body {
+    @apply font-pretendard;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .blind {
+    @apply absolute m-[-1px] size-[1px] overflow-hidden;
+  }
+  .center {
+    @apply x-center y-center;
+  }
+  .x-center {
+    @apply left-[50%] translate-x-[-50%];
+  }
+  .y-center {
+    @apply top-[50%] translate-y-[-50%];
+  }
+  .inner {
+    @apply w-full max-w-[1600px] mx-auto px-[5rem] tab:px-[2rem];
+  }
+  .y-inner {
+    @apply pt-[60px];
+  }
+}
+
+@layer components {
+}
