@@ -8,7 +8,7 @@ function MainSearchSection() {
   const [isTooltipOn, setIsTooltipOn] = useState(false);
 
   return (
-    <div className="mt-xxxl flex w-[800px] pr-xl h-[60px] bg-white rounded-[30px] shadow-md justify-between items-center mx-auto ">
+    <div className="mt-xxxl flex w-[800px] mo:w-full pr-xl h-[60px] bg-white rounded-[30px] shadow-md justify-between items-center mx-auto ">
       <div className="basis-1/5 h-full pl-[16px] flex flex-col justify-center">
         <label className="text-xs font-bold">Region</label>
         <span className="text-opgg-gray-text text-sm ">Korea</span>

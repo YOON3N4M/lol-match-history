@@ -46,7 +46,7 @@ main {
     @apply top-[50%] translate-y-[-50%];
   }
   .inner {
-    @apply w-full max-w-[1600px] mx-auto px-[5rem] tab:px-[2rem];
+    @apply w-full max-w-[1024px] mx-auto mo:px-xl;
   }
   .y-inner {
     @apply pt-[60px];
