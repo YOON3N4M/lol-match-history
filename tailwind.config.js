@@ -13,6 +13,9 @@ const config = {
         mo: { max: "1023px" },
         pc: "1024px",
       },
+      colors: {
+        "opgg-blue": "#5383e8",
+      },
       fontFamily: {
         pretendard: ["var(--font-pretendard)"],
         caslon: ["var(--font-caslon)"],
