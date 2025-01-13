@@ -1,18 +1,13 @@
-import { MatchInfoArray, ParticipantInfo } from "@/types/types";
+import CircleChart from "@/components/Chart/CircleChart";
 import PositionsBar from "@/components/PositionsBar";
-import styled from "@emotion/styled";
-import { Box, Flex, Text } from "@chakra-ui/react";
-import useDeviceDetect from "@/hooks/useDeviceDetect";
-import { getKDAColor, getMostChampionsStats } from "@/utils";
 import { CHAMPION_ICON_URL } from "@/constants";
-import { variable } from "@/constants/temp";
+import useDeviceDetect from "@/hooks/useDeviceDetect";
+import { ParticipantInfo } from "@/types/types";
+import { cn, getKDAColor, getMostChampionsStats } from "@/utils";
+import Image from "next/image";
 
 interface SummaryProps {
   mostPlayChampions: any;
-}
-
-interface SummaryMostProps {
-  champion: ParticipantInfo[];
 }
 
 export default function Summary({ mostPlayChampions }: SummaryProps) {
@@ -49,245 +44,119 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
 
   const kdaAvg = (totalKillsAvg + totalAssistsAvg) / totalDeathsAvg;
 
-  function SummaryMostProps({ champion }: SummaryMostProps) {
-    const {
-      ChampionName,
-      csAverage,
-      kdaAverage,
-      winRate,
-      kdaKills,
-      kdaDeaths,
-      kdaAssists,
-      gameQty,
-      wins,
-      lose,
-    } = getMostChampionsStats(champion);
-
-    console.log(champion);
-    return (
-      <>
-        <Flex
-          mt={{ mo: 2, pc: 0 }}
-          alignItems={"center"}
-          flexDirection={{ pc: "row", mo: "column" }}
-        >
-          <Flex
-            width={{ pc: "24px", mo: "35px" }}
-            h={{ pc: "24px", mo: "35px" }}
-            borderRadius="50%"
-            overflow={"hidden"}
-          >
-            <img src={CHAMPION_ICON_URL(ChampionName)} alt={ChampionName} />
-          </Flex>
-
-          <Flex fontSize={"11px"} gap={1} ml={{ pc: 2 }}>
-            <Text
-              color={
-                Math.round(winRate) >= 60
-                  ? variable.color.red
-                  : variable.color.gray
-              }
-            >
-              {Math.round(winRate)}%{" "}
-            </Text>
-            <Text
-              color={variable.color.gray}
-              display={{ pc: "inline", mo: "none" }}
-            >
-              ({wins}승 {lose}패)
-            </Text>
-            <Text
-              color={getKDAColor(kdaAverage)}
-              display={{ pc: "inline", mo: "none" }}
-            >
-              {" "}
-              {kdaAverage} 평점
-            </Text>
-          </Flex>
-        </Flex>
-      </>
-    );
-  }
-
   return (
-    <Flex
-      borderBottomRadius={"4px"}
-      bg="white"
-      p={{ pc: "24px 21px", mo: "12px 10px" }}
-    >
+    <div className="flex rounded-b-[4px] bg-white py-[24px] px-[21px] mo:my-sm mo:mx-[10px]">
       {mostPlayChampions.length !== 0 ? (
         <>
           {" "}
-          <Box>
-            <SumWinLose>
+          <div>
+            <div className="text-xs text-opgg-gray-text">
               {flattedArr.length}전 {winCount}승 {loseCount}패
-            </SumWinLose>
-            <Flex mt={{ pc: "12px", mo: "20px" }}>
-              <Box
-                position={"relative"}
-                w="88px"
-                h="88px"
-                display={{ pc: "initial", mo: "none" }}
-              >
-                <Box
-                  position={"absolute"}
-                  w="88px"
-                  h="88px"
-                  textAlign={"center"}
-                  lineHeight="88px"
-                  color={"keyColor.bgSky"}
-                  fontSize="sm"
-                >
+            </div>
+            <div className="mt-sm mo:mt-lg flex">
+              <div className="relative size-[88px] flex mo:hidden">
+                <div className="absolute mx-auto my-auto text-sm size-full flex items-center justify-center">
                   <strong>{winRate}%</strong>
-                </Box>
-                <div>
-                  <svg viewBox="0 0 200 200">
-                    <circle
-                      cx="100"
-                      cy="100"
-                      r="80"
-                      fill="none"
-                      stroke="#E84057"
-                      strokeWidth="30"
-                    />
-                    <circle
-                      cx="100"
-                      cy="100"
-                      r="80"
-                      fill="none"
-                      stroke="#5383E8"
-                      strokeWidth="30"
-                      strokeDasharray={`${
-                        (2 * Math.PI * 80 * winCount) / flattedArr.length
-                      } ${
-                        2 * Math.PI * 80 * (1 - winCount / flattedArr.length)
-                      }`}
-                      strokeDashoffset={2 * Math.PI * 90 * 0.22}
-                    />
-                  </svg>
                 </div>
-              </Box>
-              <Box ml={{ pc: "32px" }}>
-                <KDA>
-                  <KDANum deaths={false}>{totalKillsAvg}</KDANum>/
-                  <KDANum deaths={true}>{totalDeathsAvg}</KDANum>/
-                  <KDANum deaths={false}>{totalAssistsAvg}</KDANum>
-                </KDA>
-                <SumRaito>{kdaAvg.toFixed(2)}: 1</SumRaito>
-                <KillPart>
-                  {/* 킬관여{' '}
-									{totalKillPartNum !== undefined
-								? Math.round(totalKillPartNum)
-								: 0}
-									% */}
-                </KillPart>
-              </Box>
-            </Flex>
-          </Box>
-          <Flex
-            w={"222px"}
-            ml="16px"
-            flexDirection={"column"}
-            alignItems={{ mo: "center" }}
-          >
-            <Title>
+                <div className="size-full">
+                  <CircleChart
+                    totalGameCount={flattedArr.length}
+                    winGameCount={winCount}
+                  />
+                </div>
+              </div>
+              <div className="ml-xxl mo:ml-0">
+                <div className="text-xs font-semibold gap-xxs flex text-opgg-gray-text">
+                  <span>{totalKillsAvg}</span>/
+                  <span className="text-opgg-red">{totalDeathsAvg}</span>/
+                  <span>{totalAssistsAvg}</span>
+                </div>
+                <div className="mt-xs font-bold text-xl">
+                  {kdaAvg.toFixed(2)}: 1
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex w-[222px] ml-md flex-col mo:items-center">
+            <span className="text-xs text-opgg-gray-text">
               {isMobile
                 ? "모스트 승률"
                 : `플레이한 챔피언 (최근 ${flattedArr.length}게임)`}
-            </Title>
-            <Flex
-              mt={{ mo: 4, pc: 2 }}
-              flexDirection={{ pc: "column", mo: "row" }}
-              gap={{ pc: "8px", mo: 2 }}
-            >
+            </span>
+            <div className="mt-xs mo:mt-xxs flex flex-col mo:flex-row gap-xs mo:gap-xxs">
               {mostPlayChampions
                 .slice(0, 3)
                 .map((champion: any, idx: number) => (
-                  <SummaryMostProps key={idx} champion={champion} />
+                  <RecentMostChapmion key={idx} champion={champion} />
                 ))}
-            </Flex>
-          </Flex>
-          <Positions>
-            <PositionsBar currentMatch={flattedArr} />
-          </Positions>
+            </div>
+          </div>
+          <div className="flex-1">
+            <PositionsBar currentMatchList={flattedArr} />
+          </div>
         </>
       ) : (
-        <NoHistory>
+        <>
           {/* 전적 정보가 없습니다. 전적이 있다면 전적 갱신을 시도 해보세요. */}
-        </NoHistory>
+        </>
       )}
-    </Flex>
+    </div>
   );
 }
 
-const NoHistory = styled.span`
-  margin: 0 auto;
-`;
+interface RecentMostChapmionProps {
+  champion: ParticipantInfo[];
+}
 
-const SummaryContainer = styled.div`
-  display: flex;
-  text-align: left;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  padding: 24px 21px;
-  box-sizing: border-box;
-  width: 740px;
-  height: 164px;
-  background-color: white;
-`;
-const SumStats = styled.div`
-  width: 222px;
-`;
-const SumWinLose = styled.div`
-  font-size: 12px;
-  color: #758592;
-`;
-const RatioKda = styled.div`
-  display: flex;
-  margin-top: 12px;
-`;
-const Chart = styled.div`
-  position: relative;
-  display: inline-block;
-  width: 88px;
-  height: 88px;
-`;
+function RecentMostChapmion({ champion }: RecentMostChapmionProps) {
+  const {
+    ChampionName,
+    csAverage,
+    kdaAverage,
+    winRate,
+    kdaKills,
+    kdaDeaths,
+    kdaAssists,
+    gameQty,
+    wins,
+    lose,
+  } = getMostChampionsStats(champion);
 
-const SumInfo = styled.div`
-  margin-left: 32px;
-`;
-const KDA = styled.div`
-  font-size: 12px;
-  letter-spacing: 2px;
-  font-weight: 700;
-  color: #758592;
-`;
+  return (
+    <>
+      <div className="mo:mt-xs flex items-center mo:flex-col">
+        <div className="w-[24px] mo:w-[35px] h-[24px] mo:h-[35px] ">
+          <Image
+            className="rounded-full"
+            src={CHAMPION_ICON_URL(ChampionName)}
+            width={35}
+            height={35}
+            alt={ChampionName}
+          />
+        </div>
 
-const KDANum = styled.span<{ deaths: boolean }>`
-  color: ${(props: any) => (props.deaths ? "#d31a45" : "#758592")};
-`;
-const SumRaito = styled.div`
-  margin-top: 8px;
-  line-height: 26px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #202d37;
-`;
-const KillPart = styled.div`
-  line-height: 16px;
-  margin-top: 0px;
-  font-size: 12px;
-  color: #d31a45;
-`;
-const Champions = styled.div`
-  width: 222px;
-  margin-left: 16px;
-`;
-const Title = styled.div`
-  line-height: 16px;
-  font-size: 12px;
-  color: #758592;
-`;
-const Positions = styled.div`
-  width: 222px;
-`;
+        <div className="flex text-xs gap-xxs ml-xs">
+          <span
+          // color={
+          //   Math.round(winRate) >= 60
+          //     ? variable.color.red
+          //     : variable.color.gray
+          // }
+          >
+            {Math.round(winRate)}%{" "}
+          </span>
+          <span
+            className="mo:hidden"
+            // color={variable.color.gray}
+          >
+            ({wins}승 {lose}패)
+          </span>
+          <span className={cn("mo:hidden", getKDAColor(kdaAverage))}>
+            {" "}
+            {kdaAverage} 평점
+          </span>
+        </div>
+      </div>
+    </>
+  );
+}

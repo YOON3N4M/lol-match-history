@@ -104,3 +104,13 @@ export const positionIcon = {
   adcIcon: ADC_ICON.src,
   supIcon: SUP_ICON.src,
 };
+
+export type PositionType = "TOP" | "JUNGLE" | "MIDDLE" | "BOTTOM" | "UTILITY";
+
+export const POSITION: PositionType[] = [
+  "TOP",
+  "JUNGLE",
+  "MIDDLE",
+  "BOTTOM",
+  "UTILITY",
+];

@@ -14,6 +14,15 @@ import { RefinedInGameInfo } from "@/components/inGame/InGame";
 import { ParticipantsData } from "@/types/types";
 import { variable } from "@/constants/temp";
 
+export const cn = (...classNames: (string | false | undefined)[]) => {
+  const styledClassNames = [...classNames]
+    .map((className) => className && className.split(" "))
+    .flat()
+    .filter((className) => className);
+
+  return styledClassNames.join(" ");
+};
+
 export function handleRiotId(riotId: string, sign: string) {
   const parts = riotId.split(sign);
   const name = parts[0];
