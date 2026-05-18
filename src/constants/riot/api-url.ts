@@ -23,5 +23,5 @@ export const INGAME_INFO_URL = (summonerId: string) => {
 };
 
 export const ACCOUNT_BY_RIOT_ID_URL = (name: string, tag: string) => {
-  return `https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${name}/${tag}?api_key=${API_KEY}`;
+  return `/riot/account/v1/accounts/by-riot-id/${name}/${tag}?api_key=${API_KEY}`;
 };

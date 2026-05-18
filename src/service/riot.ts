@@ -7,7 +7,7 @@ import {
   MATCH_INFO_URL,
   SUMMONER_BY_PUUID_ID,
   SUMMONER_INFO_URL,
-} from "@/constants";
+} from "@/constants/riot/api-url";
 import axios from "axios";
 
 async function getSummonersInfo(summonersName: string) {
@@ -50,7 +50,7 @@ async function getAccountByRiotId(riotId: RiotId) {
 }
 
 async function getAccountByNextApi(riotId: RiotId) {
-  const nextUrl = "/api/account";
+  const nextUrl = "/api/riot/account";
   const res = await axios(nextUrl, { params: riotId });
 
   return { ...res.data, tagLine: riotId.tag, gameName: riotId.name };

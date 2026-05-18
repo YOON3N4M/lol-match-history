@@ -1,25 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { riotApi } from "@/service/riot";
-import type { RiotId } from "@/types/types";
+import { getAccountByRiotId } from "@/service/riot/asia/account.service";
 
 export async function GET(request: NextRequest) {
-  const riotId: RiotId = {
-    name: request.nextUrl.searchParams.get("name") ?? "",
-    tag: request.nextUrl.searchParams.get("tag") ?? "",
-  };
+  const name = request.nextUrl.searchParams.get("name") ?? "";
+  const tagLine = request.nextUrl.searchParams.get("tagLine") ?? "";
 
-  if (!riotId.name || !riotId.tag) {
-    return NextResponse.json(
-      { message: "name and tag query parameters are required" },
-      { status: 400 }
-    );
+  if (!name || !tagLine) {
+    return NextResponse.json({ message: "이름과 태그라인은 필수 입력 값 입니다." }, { status: 400 });
   }
 
   try {
-    const accountResult = await riotApi.getAccountByRiotId(riotId);
+    const accountResult = await getAccountByRiotId(name, tagLine);
     return NextResponse.json(accountResult);
   } catch {
-    return NextResponse.json({ message: "500, 등록 실패" }, { status: 500 });
+    return NextResponse.json({ message: "500, 인터넷 에러" }, { status: 500 });
   }
 }
