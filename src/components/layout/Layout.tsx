@@ -1,19 +1,16 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { ChakraProvider } from "@chakra-ui/react";
+"use client";
+
+import type { PropsWithChildren } from "react";
+
 import GlobalStyles from "@/styles/Globalstyles";
 import Header from "./Header";
 
-export default function Layout({ children }: React.PropsWithChildren) {
-  //로그인 여부 체크 로직
-
+export default function Layout({ children }: PropsWithChildren) {
   return (
     <>
-      <>
-        <GlobalStyles />
-        <Header />
-        {children}
-      </>
+      <GlobalStyles />
+      <Header />
+      {children}
     </>
   );
 }

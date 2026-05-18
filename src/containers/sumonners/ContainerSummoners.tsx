@@ -16,8 +16,8 @@ export default function ContainerSummoners() {
   const userDocument = useUserDocument();
   const { setRiotId, setUserDocument, setMatchHistory } = useSummonerActions();
 
-  function extractRiotIdFromUrl() {
-    const sumonnerName = extractSummonerName(pathname);
+  function extractRiotIdFromUrl(currentPathname: string) {
+    const sumonnerName = extractSummonerName(currentPathname);
     const riotId = handleRiotId(sumonnerName, "-");
     return riotId;
   }
@@ -31,7 +31,7 @@ export default function ContainerSummoners() {
   useEffect(() => {
     if (!pathname) return;
     initState();
-    setRiotId(extractRiotIdFromUrl());
+    setRiotId(extractRiotIdFromUrl(pathname));
   }, [pathname]);
 
   useEffect(() => {
