@@ -9,7 +9,7 @@ import {
   translateKorChampionName,
 } from "@/utils";
 import { variable } from "@/constants/temp";
-import { CHAMPION_ICON_URL } from "@/constants";
+import { CHAMPION_ICON_URL } from "@/constants/riot/asset-url";
 
 interface MostSevenProps {
   mostPlayChampions: ParticipantsData;

@@ -2,25 +2,11 @@ import { useState } from "react";
 
 import Link from "next/link";
 
-import {
-  calculatedTimeDiffer,
-  getMatchStatistics,
-  handleRiotId,
-} from "@/utils";
-import {
-  CHAMPION_ICON_URL,
-  ITEM_ICON_URL,
-  RUNE_ICON_URL,
-  SUMMONER_SPELL_ICON_URL,
-} from "@/constants";
+import { calculatedTimeDiffer, getMatchStatistics, handleRiotId } from "@/utils";
+import { CHAMPION_ICON_URL, ITEM_ICON_URL, RUNE_ICON_URL, SUMMONER_SPELL_ICON_URL } from "@/constants/riot/asset-url";
 import MatchDetail from "@/containers/sumonners/summonerBody/matchHistory/MatchDetail";
 
-import {
-  MatchInfoObj,
-  RefinedMatchStatistics,
-  RefinedParticipantInfo,
-  UserDocument,
-} from "@/types/types";
+import { MatchInfoObj, RefinedMatchStatistics, RefinedParticipantInfo, UserDocument } from "@/types/types";
 import IconArrow from "../../../../components/IconArrow";
 import styled from "@emotion/styled";
 import { Box, Flex } from "@chakra-ui/react";
@@ -33,15 +19,11 @@ interface Props {
 function MatchHistory({ userDocument, match }: Props) {
   const [showDetail, setShowDetail] = useState(false);
 
-  const matchStatistics: RefinedMatchStatistics | null = getMatchStatistics(
-    match,
-    userDocument.puuid
-  );
+  const matchStatistics: RefinedMatchStatistics | null = getMatchStatistics(match, userDocument.puuid);
 
   if (!matchStatistics) return <></>;
   const { currentPlayer, refinedMatchInfo } = matchStatistics;
-  const { gameCreation, queueType, gameDurationTime, teamA, teamB } =
-    refinedMatchInfo;
+  const { gameCreation, queueType, gameDurationTime, teamA, teamB } = refinedMatchInfo;
   const {
     win,
     championName,
@@ -74,26 +56,17 @@ function MatchHistory({ userDocument, match }: Props) {
               <TopRow>
                 <Champion>
                   <ChampionIconBox>
-                    <a
-                      target="_"
-                      href={`https://www.op.gg/champions/${championName.toLowerCase()}/build`}
-                    >
-                      <ChampionIcon
-                        src={CHAMPION_ICON_URL(championName)}
-                      ></ChampionIcon>
+                    <a target="_" href={`https://www.op.gg/champions/${championName.toLowerCase()}/build`}>
+                      <ChampionIcon src={CHAMPION_ICON_URL(championName)}></ChampionIcon>
                     </a>
                     <ChampionLevel>{champLevel}</ChampionLevel>
                   </ChampionIconBox>
                   <SpellContainer>
                     <SpellBox>
-                      <SpellIcon
-                        src={SUMMONER_SPELL_ICON_URL(summonersSpell.a)}
-                      />
+                      <SpellIcon src={SUMMONER_SPELL_ICON_URL(summonersSpell.a)} />
                     </SpellBox>
                     <SpellBox>
-                      <SpellIcon
-                        src={SUMMONER_SPELL_ICON_URL(summonersSpell.b)}
-                      />
+                      <SpellIcon src={SUMMONER_SPELL_ICON_URL(summonersSpell.b)} />
                     </SpellBox>
                   </SpellContainer>
                   <RuneContainer>
@@ -105,8 +78,7 @@ function MatchHistory({ userDocument, match }: Props) {
                 </Champion>
                 <KDAContainer>
                   <KDA>
-                    <KDASpan red={false}>{kills}</KDASpan>/
-                    <KDASpan red={true}>{deaths}</KDASpan>/
+                    <KDASpan red={false}>{kills}</KDASpan>/<KDASpan red={true}>{deaths}</KDASpan>/
                     <KDASpan red={false}>{assists}</KDASpan>
                   </KDA>
                   <Ratio>
@@ -122,10 +94,7 @@ function MatchHistory({ userDocument, match }: Props) {
                   borderColor="keyColor.gray"
                   pl={"4px"}
                 >
-                  <Stat color="red">
-                    킬관여{" "}
-                    {/* {matchStatistics?.searchedPlayer.searchedPlayersKillPart}% */}
-                  </Stat>
+                  <Stat color="red">킬관여 {/* {matchStatistics?.searchedPlayer.searchedPlayersKillPart}% */}</Stat>
                   <Stat color="gray">제어와드 {visionWardsBoughtInGame}</Stat>
                   <Stat color="gray">
                     cs {cs}
@@ -139,32 +108,24 @@ function MatchHistory({ userDocument, match }: Props) {
                   <ItemUl>
                     {items.map((item: number, idx) => (
                       <li key={idx}>
-                        <ItemBox isWin={win}>
-                          {item !== 0 && <ItemIcon src={ITEM_ICON_URL(item)} />}
-                        </ItemBox>
+                        <ItemBox isWin={win}>{item !== 0 && <ItemIcon src={ITEM_ICON_URL(item)} />}</ItemBox>
                       </li>
                     ))}
                   </ItemUl>
-                  <WardBox isWin={win}>
-                    {item6 !== 0 && <WardIcon src={ITEM_ICON_URL(item6)} />}
-                  </WardBox>
+                  <WardBox isWin={win}>{item6 !== 0 && <WardIcon src={ITEM_ICON_URL(item6)} />}</WardBox>
                 </ItemContainer>
               </BottomRow>
             </Box>
             <Flex display={{ pc: "flex", mo: "none" }}>
               <ul>
                 {teamA.map((item: RefinedParticipantInfo, index: any) => (
-                  <PartLi
-                    key={`${gameCreation}-${item.riotIdGameName}-${index}`}
-                  >
+                  <PartLi key={`${gameCreation}-${item.riotIdGameName}-${index}`}>
                     <PartIconBox>
                       <PartIcon src={CHAMPION_ICON_URL(item.championName)} />
                     </PartIconBox>
                     <PartNameBox>
                       <PartName $isPlayer={item.puuid === userDocument.puuid}>
-                        <Link
-                          href={`/summoners/kr/${item.riotIdGameName}-${item.riotIdTagline}`}
-                        >
+                        <Link href={`/summoners/kr/${item.riotIdGameName}-${item.riotIdTagline}`}>
                           {item.riotIdGameName}
                         </Link>
                       </PartName>
@@ -180,9 +141,7 @@ function MatchHistory({ userDocument, match }: Props) {
                     </PartIconBox>
                     <PartNameBox>
                       <PartName $isPlayer={item.puuid === userDocument.puuid}>
-                        <Link
-                          href={`/summoners/kr/${item.riotIdGameName}-${item.riotIdTagline}`}
-                        >
+                        <Link href={`/summoners/kr/${item.riotIdGameName}-${item.riotIdTagline}`}>
                           {item.riotIdGameName}
                         </Link>
                       </PartName>
@@ -193,10 +152,7 @@ function MatchHistory({ userDocument, match }: Props) {
             </Flex>
           </GameContainer>
           <Detail>
-            <DetailBtn
-              isWin={win}
-              onClick={() => setShowDetail((prev) => !prev)}
-            >
+            <DetailBtn isWin={win} onClick={() => setShowDetail((prev) => !prev)}>
               <IconArrow direction="bottom" />
             </DetailBtn>
           </Detail>

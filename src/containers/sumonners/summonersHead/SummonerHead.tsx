@@ -1,5 +1,5 @@
 import { RiotId, UserDocument } from "@/types/types";
-import { SUMMONER_PROFILE_ICON_URL } from "@/constants";
+import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot/asset-url";
 import { calculatedTimeDiffer, handleRiotId } from "@/utils";
 import styled from "@emotion/styled";
 import { useRiotId, useUserDocument } from "@/store/summonersStore";
@@ -36,13 +36,7 @@ export default function SummonerHead(props: SummonerHeadProps) {
   return (
     <>
       <Flex w={"100%"} bg="white" px={{ mo: 4 }}>
-        <Flex
-          m="0 auto"
-          w="100%"
-          maxW={"1080px"}
-          py={12}
-          justifyContent={{ mo: "space-around", pc: "start" }}
-        >
+        <Flex m="0 auto" w="100%" maxW={"1080px"} py={12} justifyContent={{ mo: "space-around", pc: "start" }}>
           <Box className="head-left">
             <Box py={4}>
               <Box position={"relative"}>
@@ -61,18 +55,8 @@ export default function SummonerHead(props: SummonerHeadProps) {
                 >
                   {summonerLevel}
                 </Box>
-                <Box
-                  position={"relative"}
-                  w="100px"
-                  h="100px"
-                  borderRadius={"20px"}
-                  overflow="hidden"
-                >
-                  <Image
-                    alt="summoner-icon"
-                    fill={true}
-                    src={SUMMONER_PROFILE_ICON_URL(profileIconId)}
-                  />
+                <Box position={"relative"} w="100px" h="100px" borderRadius={"20px"} overflow="hidden">
+                  <Image alt="summoner-icon" fill={true} src={SUMMONER_PROFILE_ICON_URL(profileIconId)} />
                 </Box>
               </Box>
             </Box>
@@ -86,24 +70,12 @@ export default function SummonerHead(props: SummonerHeadProps) {
               </Text>
             </Heading>{" "}
             {riotId.tag !== "KR1" && (
-              <Text
-                fontSize={"sm"}
-                color="keyColor.gray"
-                className="prev-nickname"
-              >
+              <Text fontSize={"sm"} color="keyColor.gray" className="prev-nickname">
                 prev. {userDocument.name}
               </Text>
             )}
-            <Box
-              display={{ mo: "flex", pc: "block" }}
-              flexDirection={"column"}
-              mt={12}
-            >
-              <Button
-                bg="keyColor.bgSky"
-                color={"white"}
-                onClick={handleRefresh}
-              >
+            <Box display={{ mo: "flex", pc: "block" }} flexDirection={"column"} mt={12}>
+              <Button bg="keyColor.bgSky" color={"white"} onClick={handleRefresh}>
                 전적 갱신
               </Button>
               <Text

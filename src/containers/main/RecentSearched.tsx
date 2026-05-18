@@ -7,7 +7,7 @@ import {
 } from "@/utils";
 import { firebaseAPI } from "@/service/firebase";
 import { useEffect, useState } from "react";
-import { SUMMONER_PROFILE_ICON_URL } from "@/constants";
+import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot/asset-url";
 import { useRouter } from "next/navigation";
 import { Box, Center, Flex, Text } from "@chakra-ui/react";
 

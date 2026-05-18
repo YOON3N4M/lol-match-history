@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
 import { getKDAColor, getMostChampionsStats } from "@/utils";
-import { CHAMPION_ICON_URL } from "@/constants";
+import { CHAMPION_ICON_URL } from "@/constants/riot/asset-url";
 import { variable } from "@/constants/temp";
 
 interface SummaryProps {
@@ -18,9 +18,7 @@ interface SummaryMostProps {
 export default function Summary({ mostPlayChampions }: SummaryProps) {
   const { isMobile } = useDeviceDetect();
   const flattedArr = mostPlayChampions.flat();
-  const winCount = flattedArr.filter(
-    (info: ParticipantInfo) => info.win === true
-  ).length;
+  const winCount = flattedArr.filter((info: ParticipantInfo) => info.win === true).length;
   const loseCount = flattedArr.length - winCount;
   const winRate = Math.round((winCount / flattedArr.length) * 100);
 
@@ -29,14 +27,14 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
       flattedArr.reduce((sum: any, info: any) => {
         return sum + info.kills;
       }, 0) / flattedArr.length
-    ).toFixed(1)
+    ).toFixed(1),
   );
   const totalDeathsAvg = Number(
     (
       flattedArr.reduce((sum: any, info: any) => {
         return sum + info.deaths;
       }, 0) / flattedArr.length
-    ).toFixed(1)
+    ).toFixed(1),
   );
 
   const totalAssistsAvg = Number(
@@ -44,33 +42,19 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
       flattedArr.reduce((sum: any, info: any) => {
         return sum + info.assists;
       }, 0) / flattedArr.length
-    ).toFixed(1)
+    ).toFixed(1),
   );
 
   const kdaAvg = (totalKillsAvg + totalAssistsAvg) / totalDeathsAvg;
 
   function SummaryMostProps({ champion }: SummaryMostProps) {
-    const {
-      ChampionName,
-      csAverage,
-      kdaAverage,
-      winRate,
-      kdaKills,
-      kdaDeaths,
-      kdaAssists,
-      gameQty,
-      wins,
-      lose,
-    } = getMostChampionsStats(champion);
+    const { ChampionName, csAverage, kdaAverage, winRate, kdaKills, kdaDeaths, kdaAssists, gameQty, wins, lose } =
+      getMostChampionsStats(champion);
 
     console.log(champion);
     return (
       <>
-        <Flex
-          mt={{ mo: 2, pc: 0 }}
-          alignItems={"center"}
-          flexDirection={{ pc: "row", mo: "column" }}
-        >
+        <Flex mt={{ mo: 2, pc: 0 }} alignItems={"center"} flexDirection={{ pc: "row", mo: "column" }}>
           <Flex
             width={{ pc: "24px", mo: "35px" }}
             h={{ pc: "24px", mo: "35px" }}
@@ -81,25 +65,13 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
           </Flex>
 
           <Flex fontSize={"11px"} gap={1} ml={{ pc: 2 }}>
-            <Text
-              color={
-                Math.round(winRate) >= 60
-                  ? variable.color.red
-                  : variable.color.gray
-              }
-            >
+            <Text color={Math.round(winRate) >= 60 ? variable.color.red : variable.color.gray}>
               {Math.round(winRate)}%{" "}
             </Text>
-            <Text
-              color={variable.color.gray}
-              display={{ pc: "inline", mo: "none" }}
-            >
+            <Text color={variable.color.gray} display={{ pc: "inline", mo: "none" }}>
               ({wins}승 {lose}패)
             </Text>
-            <Text
-              color={getKDAColor(kdaAverage)}
-              display={{ pc: "inline", mo: "none" }}
-            >
+            <Text color={getKDAColor(kdaAverage)} display={{ pc: "inline", mo: "none" }}>
               {" "}
               {kdaAverage} 평점
             </Text>
@@ -110,11 +82,7 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
   }
 
   return (
-    <Flex
-      borderBottomRadius={"4px"}
-      bg="white"
-      p={{ pc: "24px 21px", mo: "12px 10px" }}
-    >
+    <Flex borderBottomRadius={"4px"} bg="white" p={{ pc: "24px 21px", mo: "12px 10px" }}>
       {mostPlayChampions.length !== 0 ? (
         <>
           {" "}
@@ -123,12 +91,7 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
               {flattedArr.length}전 {winCount}승 {loseCount}패
             </SumWinLose>
             <Flex mt={{ pc: "12px", mo: "20px" }}>
-              <Box
-                position={"relative"}
-                w="88px"
-                h="88px"
-                display={{ pc: "initial", mo: "none" }}
-              >
+              <Box position={"relative"} w="88px" h="88px" display={{ pc: "initial", mo: "none" }}>
                 <Box
                   position={"absolute"}
                   w="88px"
@@ -142,14 +105,7 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
                 </Box>
                 <div>
                   <svg viewBox="0 0 200 200">
-                    <circle
-                      cx="100"
-                      cy="100"
-                      r="80"
-                      fill="none"
-                      stroke="#E84057"
-                      strokeWidth="30"
-                    />
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="#E84057" strokeWidth="30" />
                     <circle
                       cx="100"
                       cy="100"
@@ -157,9 +113,7 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
                       fill="none"
                       stroke="#5383E8"
                       strokeWidth="30"
-                      strokeDasharray={`${
-                        (2 * Math.PI * 80 * winCount) / flattedArr.length
-                      } ${
+                      strokeDasharray={`${(2 * Math.PI * 80 * winCount) / flattedArr.length} ${
                         2 * Math.PI * 80 * (1 - winCount / flattedArr.length)
                       }`}
                       strokeDashoffset={2 * Math.PI * 90 * 0.22}
@@ -169,8 +123,7 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
               </Box>
               <Box ml={{ pc: "32px" }}>
                 <KDA>
-                  <KDANum deaths={false}>{totalKillsAvg}</KDANum>/
-                  <KDANum deaths={true}>{totalDeathsAvg}</KDANum>/
+                  <KDANum deaths={false}>{totalKillsAvg}</KDANum>/<KDANum deaths={true}>{totalDeathsAvg}</KDANum>/
                   <KDANum deaths={false}>{totalAssistsAvg}</KDANum>
                 </KDA>
                 <SumRaito>{kdaAvg.toFixed(2)}: 1</SumRaito>
@@ -184,27 +137,12 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
               </Box>
             </Flex>
           </Box>
-          <Flex
-            w={"222px"}
-            ml="16px"
-            flexDirection={"column"}
-            alignItems={{ mo: "center" }}
-          >
-            <Title>
-              {isMobile
-                ? "모스트 승률"
-                : `플레이한 챔피언 (최근 ${flattedArr.length}게임)`}
-            </Title>
-            <Flex
-              mt={{ mo: 4, pc: 2 }}
-              flexDirection={{ pc: "column", mo: "row" }}
-              gap={{ pc: "8px", mo: 2 }}
-            >
-              {mostPlayChampions
-                .slice(0, 3)
-                .map((champion: any, idx: number) => (
-                  <SummaryMostProps key={idx} champion={champion} />
-                ))}
+          <Flex w={"222px"} ml="16px" flexDirection={"column"} alignItems={{ mo: "center" }}>
+            <Title>{isMobile ? "모스트 승률" : `플레이한 챔피언 (최근 ${flattedArr.length}게임)`}</Title>
+            <Flex mt={{ mo: 4, pc: 2 }} flexDirection={{ pc: "column", mo: "row" }} gap={{ pc: "8px", mo: 2 }}>
+              {mostPlayChampions.slice(0, 3).map((champion: any, idx: number) => (
+                <SummaryMostProps key={idx} champion={champion} />
+              ))}
             </Flex>
           </Flex>
           <Positions>
@@ -212,9 +150,7 @@ export default function Summary({ mostPlayChampions }: SummaryProps) {
           </Positions>
         </>
       ) : (
-        <NoHistory>
-          {/* 전적 정보가 없습니다. 전적이 있다면 전적 갱신을 시도 해보세요. */}
-        </NoHistory>
+        <NoHistory>{/* 전적 정보가 없습니다. 전적이 있다면 전적 갱신을 시도 해보세요. */}</NoHistory>
       )}
     </Flex>
   );

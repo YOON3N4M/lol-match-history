@@ -1,6 +1,6 @@
 import { RefinedParticipant } from "./InGame";
 import Image from "next/image";
-import { CHAMPION_ICON_URL, SUMMONER_SPELL_ICON_URL } from "@/constants";
+import { CHAMPION_ICON_URL, SUMMONER_SPELL_ICON_URL } from "@/constants/riot/asset-url";
 import styled from "@emotion/styled";
 
 interface Props {
@@ -35,18 +35,10 @@ export default function TeamContainer({ team }: Props) {
               </div>
               <div className="summoner-spells">
                 <div className="spell">
-                  <img
-                    src={
-                      "https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/SummonerSmite.png"
-                    }
-                  />
+                  <img src={"https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/SummonerSmite.png"} />
                 </div>
                 <div className="spell">
-                  <img
-                    src={
-                      "https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/SummonerSmite.png"
-                    }
-                  />
+                  <img src={"https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/SummonerSmite.png"} />
                 </div>
               </div>
               <div className="rune">

@@ -1,20 +1,8 @@
 import { RefinedParticipantInfo, RefinedTeamStats } from "@/types/types";
-import {
-  CHAMPION_ICON_URL,
-  ITEM_ICON_URL,
-  RUNE_ICON_URL,
-  SUMMONER_SPELL_ICON_URL,
-} from "@/constants";
+import { CHAMPION_ICON_URL, ITEM_ICON_URL, RUNE_ICON_URL, SUMMONER_SPELL_ICON_URL } from "@/constants/riot/asset-url";
 import { fixedChampionName, getKDAColor } from "@/utils";
 import Link from "next/link";
-import {
-  ItemBox,
-  ItemContainer,
-  ItemIcon,
-  ItemUl,
-  WardBox,
-  WardIcon,
-} from "./MatchHistory";
+import { ItemBox, ItemContainer, ItemIcon, ItemUl, WardBox, WardIcon } from "./MatchHistory";
 import styled from "@emotion/styled";
 import { variable } from "@/constants/temp";
 
@@ -31,20 +19,9 @@ interface RowProps {
   topTakenDamage?: number;
 }
 
-export default function DetailTable({
-  team,
-  teamStats,
-  topDealtOnChampion,
-  topTakenDamage,
-}: Props) {
-  const {
-    totalKills,
-    totalBaronKills,
-    totalTurretKills,
-    totalDragonKills,
-    totalGold,
-    totalDealtToChampion,
-  } = teamStats;
+export default function DetailTable({ team, teamStats, topDealtOnChampion, topTakenDamage }: Props) {
+  const { totalKills, totalBaronKills, totalTurretKills, totalDragonKills, totalGold, totalDealtToChampion } =
+    teamStats;
   const win = team[0].win;
   const teamId = team[0].teamId;
 
@@ -70,20 +47,13 @@ export default function DetailTable({
       item6,
     } = participant;
     const killPart = Math.round(((kills + assists) / totalKills) * 100);
-    const dealtPercentage = Math.floor(
-      (dealtToChampion / topDealtOnChampion) * 100
-    );
-    const takenPercentage = Math.floor(
-      (totalDamageTaken / topTakenDamage) * 100
-    );
+    const dealtPercentage = Math.floor((dealtToChampion / topDealtOnChampion) * 100);
+    const takenPercentage = Math.floor((totalDamageTaken / topTakenDamage) * 100);
     console.log(participant);
     return (
       <StyledTr $kdaColor={getKDAColor(kda)}>
         <td className="champion">
-          <a
-            target="_"
-            href={`https://www.op.gg/champions/${championName.toLowerCase()}/build`}
-          >
+          <a target="_" href={`https://www.op.gg/champions/${championName.toLowerCase()}/build`}>
             <div>
               <img src={CHAMPION_ICON_URL(fixedChampionName(championName))} />
             </div>
@@ -91,16 +61,10 @@ export default function DetailTable({
         </td>
         <td className="spells">
           <div>
-            <img
-              src={SUMMONER_SPELL_ICON_URL(summonersSpell.a)}
-              alt={summonersSpell.a}
-            />
+            <img src={SUMMONER_SPELL_ICON_URL(summonersSpell.a)} alt={summonersSpell.a} />
           </div>
           <div>
-            <img
-              src={SUMMONER_SPELL_ICON_URL(summonersSpell.b)}
-              alt={summonersSpell.b}
-            />
+            <img src={SUMMONER_SPELL_ICON_URL(summonersSpell.b)} alt={summonersSpell.b} />
           </div>
         </td>
         <td className="runes">
@@ -113,9 +77,7 @@ export default function DetailTable({
         </td>
         <td className="name">
           <div>
-            <Link href={`/summoners/kr/${riotIdGameName}-${riotIdTagline}`}>
-              {riotIdGameName}
-            </Link>
+            <Link href={`/summoners/kr/${riotIdGameName}-${riotIdTagline}`}>{riotIdGameName}</Link>
           </div>
           <div>
             <span>티어</span>
@@ -159,15 +121,11 @@ export default function DetailTable({
             <ItemUl>
               {items.map((item: number) => (
                 <li>
-                  <ItemBox isWin={win}>
-                    {item !== 0 && <ItemIcon src={ITEM_ICON_URL(item)} />}
-                  </ItemBox>
+                  <ItemBox isWin={win}>{item !== 0 && <ItemIcon src={ITEM_ICON_URL(item)} />}</ItemBox>
                 </li>
               ))}
             </ItemUl>
-            <WardBox isWin={win}>
-              {item6 !== 0 && <WardIcon src={ITEM_ICON_URL(item6)} />}
-            </WardBox>
+            <WardBox isWin={win}>{item6 !== 0 && <WardIcon src={ITEM_ICON_URL(item6)} />}</WardBox>
           </ItemContainer>
         </td>
       </StyledTr>
@@ -230,10 +188,7 @@ const StyledTable = styled.table<{ $win: boolean }>`
   }
   .team {
     font-weight: bold;
-    color: ${(props) =>
-      props.$win
-        ? variable.color.selectFontBlue
-        : variable.color.selectFontRed};
+    color: ${(props) => (props.$win ? variable.color.selectFontBlue : variable.color.selectFontRed)};
     span {
       color: ${variable.color.gray};
       font-weight: normal;
@@ -328,9 +283,5 @@ const ProgressBar = styled.div<{ $progress: number; $color: string }>`
   max-width: 50px;
   height: 6px;
   background-color: white;
-  background: linear-gradient(
-    to right,
-    ${(props) => props.$color} ${(props) => props.$progress}%,
-    white 0%
-  );
+  background: linear-gradient(to right, ${(props) => props.$color} ${(props) => props.$progress}%, white 0%);
 `;
