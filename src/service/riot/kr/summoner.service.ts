@@ -1,4 +1,4 @@
-import { SummonerDto } from "@/types/riot-dto";
+import type { SummonerDto } from "@/types/riot";
 import { riotKrClient } from "./client";
 
 export async function getSummonerByPuuid(puuid: string) {

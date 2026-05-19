@@ -1,7 +1,7 @@
 "use client";
 
 import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot/asset-url";
-import { RiotAccountDto, SummonerDto } from "@/types/riot-dto";
+import type { RiotAccountDto, SummonerDto } from "@/types/riot";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Image from "next/image";
 

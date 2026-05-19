@@ -1,4 +1,4 @@
-import { LeagueEntryDto } from "@/types/riot-dto";
+import type { LeagueEntryDto } from "@/types/riot";
 import { riotKrClient } from "./client";
 
 export async function getLeagueEntry(puuid: string) {

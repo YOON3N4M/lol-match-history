@@ -1,6 +1,6 @@
 import SummonerBody from "@/containers/summoners/summonerBody/SummonerBody";
 import SummonerHead from "@/containers/summoners/summonersHead/SummonerHead";
-import { RiotAccountDto, SummonerDto } from "@/types/riot-dto";
+import type { RiotAccountDto, SummonerDto } from "@/types/riot";
 
 interface SummonersContainerProps {
   account: RiotAccountDto;

@@ -1,5 +1,5 @@
 import { fetchClient } from "@/lib/http/fetchClient";
-import { RiotAccountDto } from "@/types/riot-dto";
+import type { RiotAccountDto } from "@/types/riot";
 
 const apiClient = fetchClient({});
 

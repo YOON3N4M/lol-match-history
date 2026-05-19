@@ -1,7 +1,7 @@
 import { getMatchHistoryList } from "@/service/riot/asia/matches-history.service";
 import { getMatches } from "@/service/riot/asia/matches.service";
 import { getLeagueEntry } from "@/service/riot/kr/league.service";
-import { LeagueEntryDto, RiotAccountDto, SummonerDto } from "@/types/riot-dto";
+import type { LeagueEntryDto, RiotAccountDto, SummonerDto } from "@/types/riot";
 import { Suspense } from "react";
 import RankWidget from "./RankWidget";
 

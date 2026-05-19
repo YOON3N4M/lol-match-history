@@ -1,4 +1,4 @@
-import { MatchDto } from "@/types/riot-dto";
+import type { MatchDto } from "@/types/riot";
 import { riotAsiaClient } from "./client";
 
 export async function getMatchDetail(matchId: string) {
