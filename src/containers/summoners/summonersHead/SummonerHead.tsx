@@ -1,37 +1,34 @@
-import { RiotId, UserDocument } from "@/types/types";
+"use client";
+
 import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot/asset-url";
-import { calculatedTimeDiffer, handleRiotId } from "@/utils";
-import styled from "@emotion/styled";
-import { useRiotId, useUserDocument } from "@/store/summonersStore";
-import useSummoner from "@/hooks/useSummoner";
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { RiotAccountDto, SummonerDto } from "@/types/riot-dto";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Image from "next/image";
 
 interface SummonerHeadProps {
-  refreshActions: () => Promise<void>;
+  account: RiotAccountDto;
+  summoner: SummonerDto;
+  // refreshActions: () => Promise<void>;
 }
 
 export default function SummonerHead(props: SummonerHeadProps) {
-  const { refreshActions } = props;
-  const riotId = useRiotId();
-  const userDocument = useUserDocument();
+  const { account, summoner } = props;
 
-  if (!riotId || !userDocument) return <></>;
+  const { gameName, tagLine } = account;
+  const { profileIconId, summonerLevel } = summoner;
 
-  const { profileIconId, summonerLevel, lastRequestTime } = userDocument;
+  // function handleRefresh() {
+  //   const currentTime = new Date().getTime();
+  //   const timeDiffer = Math.abs((lastRequestTime - currentTime) / 1000);
+  //   const timeLimit = 180;
+  //   const remainTime = Math.floor(timeLimit - timeDiffer);
 
-  function handleRefresh() {
-    const currentTime = new Date().getTime();
-    const timeDiffer = Math.abs((lastRequestTime - currentTime) / 1000);
-    const timeLimit = 180;
-    const remainTime = Math.floor(timeLimit - timeDiffer);
-
-    if (timeDiffer < timeLimit) {
-      alert(`전적 갱신은 180초마다 가능합니다. ${remainTime}초 남았습니다.`);
-    } else {
-      refreshActions();
-    }
-  }
+  //   if (timeDiffer < timeLimit) {
+  //     alert(`전적 갱신은 180초마다 가능합니다. ${remainTime}초 남았습니다.`);
+  //   } else {
+  //     refreshActions();
+  //   }
+  // }
 
   return (
     <>
@@ -64,21 +61,17 @@ export default function SummonerHead(props: SummonerHeadProps) {
           <Box className="head-right" ml={{ pc: 6, mo: 6 }}>
             <Heading fontSize={"2xl"}>
               {" "}
-              {riotId.name}{" "}
+              {gameName}{" "}
               <Text ml={2} display={"inline"} color="keyColor.gray">
-                #{riotId.tag}
+                #{tagLine}
               </Text>
             </Heading>{" "}
-            {riotId.tag !== "KR1" && (
-              <Text fontSize={"sm"} color="keyColor.gray" className="prev-nickname">
-                prev. {userDocument.name}
-              </Text>
-            )}
             <Box display={{ mo: "flex", pc: "block" }} flexDirection={"column"} mt={12}>
-              <Button bg="keyColor.bgSky" color={"white"} onClick={handleRefresh}>
+              {/* <Button bg="keyColor.bgSky" color={"white"} onClick={handleRefresh}>
                 전적 갱신
-              </Button>
-              <Text
+              </Button> */}
+              {/* firebase 정상화 될때까지 주석처리 */}
+              {/* <Text
                 mt={2}
                 fontSize={"xs"}
                 fontWeight="600"
@@ -86,7 +79,7 @@ export default function SummonerHead(props: SummonerHeadProps) {
                 textAlign={{ pc: "initial", mo: "right" }}
               >
                 최근 업데이트: {calculatedTimeDiffer(lastRequestTime)}
-              </Text>
+              </Text> */}
             </Box>
           </Box>
         </Flex>

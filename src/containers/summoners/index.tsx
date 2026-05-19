@@ -12,7 +12,7 @@ export default function SummonersContainer(props: SummonersContainerProps) {
   return (
     <div>
       <SummonerHead account={account} summoner={summoner} />
-      <SummonerBody />
+      <SummonerBody account={account} summoner={summoner} />
       {/* {userDocument && (
         <>
           <Box

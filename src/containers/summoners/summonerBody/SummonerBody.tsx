@@ -1,0 +1,149 @@
+import { getMatchHistoryList } from "@/service/riot/asia/matches-history.service";
+import { getMatches } from "@/service/riot/asia/matches.service";
+import { getLeagueEntry } from "@/service/riot/kr/league.service";
+import { LeagueEntryDto, RiotAccountDto, SummonerDto } from "@/types/riot-dto";
+import { Suspense } from "react";
+import RankWidget from "./RankWidget";
+
+interface SummonerBodyProps {
+  account: RiotAccountDto;
+  summoner: SummonerDto;
+}
+
+export default async function SummonerBody(props: SummonerBodyProps) {
+  const { account, summoner } = props;
+  const { puuid } = account;
+
+  const leagueEntryPromise = getLeagueEntry(puuid);
+  const matchIdList = await getMatches(puuid);
+  const matchInfoList = await getMatchHistoryList(matchIdList);
+
+  console.log(matchInfoList);
+
+  return (
+    <div className="max-w-[1080px] mx-auto flex gap-2 mt-2">
+      <div className="basis-[30.74%]">
+        <Suspense>
+          <RankWidget leagueEntryPromise={leagueEntryPromise} />
+        </Suspense>
+      </div>
+      <div className="flex-1">
+        <div>우</div>
+      </div>
+    </div>
+    // <Flex flexDirection={"column"} w="100%">
+    //   <Flex
+    //     w={{ pc: "1080px" }}
+    //     maxW="1080px"
+    //     m={{ pc: "0 auto" }}
+    //     mt={{ pc: 2 }}
+    //     gap={{ pc: 2 }}
+    //     flexDirection={{ pc: "row", mo: "column" }}
+    //   >
+    //     <Box className="left" width={{ pc: "332px", mo: "100%" }}>
+    //       <CurrentRank />
+    //       {mostPlayChampions && <MostSeven mostPlayChampions={mostPlayChampions} />}
+    //     </Box>
+    //     <Box className="right" flex={1} minH={"50px"}>
+    //       <Box className="right-tab" w="100%" bg="white" borderTopRadius={"4px"} p={2}>
+    //         <Button size={"sm"} color="keyColor.selectFontBlue" bg="keyColor.selectBgBlue">
+    //           전체
+    //         </Button>
+    //       </Box>
+    //       <Box borderTop="1px solid" borderColor={"keyColor.border"}>
+    //         <Summary mostPlayChampions={mostPlayChampions} />
+    //         <Box mt="4x">
+    //           {matchHistory &&
+    //             matchHistory.map((match: any) => (
+    //               <MatchHistory key={match.metadata.matchId} match={match} userDocument={userDocument!} />
+    //             ))}
+    //         </Box>
+    //       </Box>
+    //     </Box>
+    //     {/* <RightContents>
+    //     <MatchHistoryTab>
+    //       <MatchHistroyTabUl>
+    //         <MatchHistoryTabLi selected={true}>전체</MatchHistoryTabLi>
+    //         <MatchHistoryTabLi selected={false}></MatchHistoryTabLi>
+    //         <MatchHistoryTabLi selected={false}></MatchHistoryTabLi>
+    //         <MatchHistoryTabLi selected={false}></MatchHistoryTabLi>
+    //       </MatchHistroyTabUl>
+    //     </MatchHistoryTab>
+
+    //     {mostPlayChampions && (
+    //       <Summary
+    //         matchHistory={matchHistory}
+    //         mostPlayChampions={mostPlayChampions}
+    //       />
+    //     )}
+
+    //     <MatchHistoryContainer>
+    //       {matchHistory &&
+    //         matchHistory.map((match: any) => (
+    //           <MatchHistory match={match} userDocument={userDocument} />
+    //         ))}
+    //     </MatchHistoryContainer>
+    //   </RightContents> */}
+    //   </Flex>
+    // </Flex>
+  );
+}
+
+// 컨텐츠 부분 컴포넌트
+// const ContentsContainer = styled.div`
+//   width: 100%;
+//   margin: 0 auto;
+//   min-height: auto;
+// `;
+// // 모스트 챔피언, 현재 티어 등 좌측 컨텐츠 컴포넌트
+// const LeftContents = styled.div`
+//   display: inline-block;
+//   vertical-align: top;
+//   width: 332px;
+//   min-height: 870px;
+//   font-size: 12px;
+// `;
+
+// // 개요 ,전적 등이 보여지는 우측 컴포넌트
+// const RightContents = styled.div`
+//   display: inline-block;
+//   width: 740px;
+//   min-height: 1000px;
+//   margin-top: 8px;
+//   margin-left: 8px;
+//   vertical-align: top;
+// `;
+// const MatchHistoryTab = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   padding: 4px;
+//   border-top-left-radius: 4px;
+//   border-top-right-radius: 4px;
+//   border-bottom: 1px solid;
+//   border-color: #ebeef1;
+//   background-color: white;
+// `;
+// const MatchHistroyTabUl = styled.ul`
+//   display: flex;
+//   line-height: 28px;
+//   margin: 0px;
+// `;
+// const MatchHistoryTabLi = styled.li<{ selected: boolean }>`
+//   padding: 4px 12px;
+//   border-radius: 4px;
+//   font-size: 14px;
+//   line-height: 28px;
+//   cursor: ${(props: any) => (props.selected ? "pointer" : "")};
+//   background-color: ${(props: any) => (props.selected ? "#ecf2ff" : "none")};
+//   font-weight: ${(props: any) => (props.selected ? 700 : "")};
+//   color: ${(props: any) => (props.selected ? "#4171d6" : "")};
+// `;
+
+// const MatchHistoryContainer = styled.div`
+//   margin-top: 8px;
+// `;
+// const NotFoundMsg = styled.div`
+//   padding-top: 50px;
+//   text-align: center;
+//   font-size: 30px;
+// `;
