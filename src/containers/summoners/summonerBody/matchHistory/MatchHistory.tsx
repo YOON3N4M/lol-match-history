@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { calculatedTimeDiffer, getMatchStatistics, handleRiotId } from "@/utils";
 import { CHAMPION_ICON_URL, ITEM_ICON_URL, RUNE_ICON_URL, SUMMONER_SPELL_ICON_URL } from "@/constants/riot/asset-url";
-import MatchDetail from "@/containers/sumonners/summonerBody/matchHistory/MatchDetail";
+import MatchDetail from "@/containers/summoners/summonerBody/matchHistory/MatchDetail";
 
 import { MatchInfoObj, RefinedMatchStatistics, RefinedParticipantInfo, UserDocument } from "@/types/types";
 import IconArrow from "../../../../components/IconArrow";
