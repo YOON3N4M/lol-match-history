@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 import Layout from "@/components/layout/Layout";
 
-import "./globals.css";
+import "../styles/globals.css";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
