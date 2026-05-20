@@ -6,7 +6,7 @@ import { ParticipantDto } from "@/types/riot/participant.dto";
  * 승률을 반환
  */
 export function getWinRate(wins: number, loses: number) {
-  return (wins / (wins + loses)) * 100;
+  return ((wins / (wins + loses)) * 100).toFixed(0);
 }
 
 /**
