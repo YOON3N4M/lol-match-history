@@ -8,5 +8,5 @@ export {
   getMostChampionsStats,
   getWinRate,
 } from "./match-stats";
-export { matchingTierImg, romeNumToArabNum } from "./rank";
+export { getRankEmblemSrc, romeNumToArabNum } from "./rank";
 export { extractSummonerName, handleRiotId } from "./riot-id";

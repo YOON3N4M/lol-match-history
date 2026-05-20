@@ -1,4 +1,4 @@
-import { tierIcon } from "@/constants";
+import { RANK_EMBLEM_SRC } from "@/constants/riot";
 
 /**
  *  티어 표기의 로마 숫자를 아랍 숫자로 변환
@@ -16,30 +16,6 @@ export function romeNumToArabNum(rome: string) {
   }
 }
 
-// 각 티어의 문자열과 이미지를 텍스트 대치
-export function matchingTierImg(tier: string) {
-  switch (tier) {
-    case "IRON":
-      return tierIcon.IRON;
-    case "BRONZE":
-      return tierIcon.BRONZE;
-    case "SILVER":
-      return tierIcon.SILVER;
-    case "GOLD":
-      return tierIcon.GOLD;
-    case "PLATINUM":
-      return tierIcon.PLATINUM;
-    case "EMERALD":
-      return tierIcon.EMERALD;
-    case "DIAMOND":
-      return tierIcon.DIAMOND;
-    case "MASTER":
-      return tierIcon.MASTER;
-    case "GRANDMASTER":
-      return tierIcon.GRANDMASTER;
-    case "CHALLENGER":
-      return tierIcon.CHALLENGER;
-    default:
-      return "unranked";
-  }
+export function getRankEmblemSrc(tier: string) {
+  return RANK_EMBLEM_SRC[tier as keyof typeof RANK_EMBLEM_SRC];
 }
