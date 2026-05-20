@@ -1,9 +1,11 @@
 import { getMatchHistoryList } from "@/service/riot/asia/matches-history.service";
 import { getMatches } from "@/service/riot/asia/matches.service";
 import { getLeagueEntry } from "@/service/riot/kr/league.service";
-import type { LeagueEntryDto, RiotAccountDto, SummonerDto } from "@/types/riot";
+import type { RiotAccountDto, SummonerDto } from "@/types/riot";
 import { Suspense } from "react";
-import RankWidget from "./RankWidget";
+import MatchDetailWidget from "./_components/MatchDetailWidget";
+import RankWidget from "./_components/RankWidget";
+import SummaryWidget from "./_components/SummaryWidget";
 
 interface SummonerBodyProps {
   account: RiotAccountDto;
@@ -16,9 +18,9 @@ export default async function SummonerBody(props: SummonerBodyProps) {
 
   const leagueEntryPromise = getLeagueEntry(puuid);
   const matchIdList = await getMatches(puuid);
-  const matchInfoList = await getMatchHistoryList(matchIdList);
+  const matchDetailList = await getMatchHistoryList(matchIdList);
 
-  console.log(matchInfoList);
+  console.log(matchDetailList);
 
   return (
     <div className="max-w-[1080px] mx-auto flex gap-2 mt-2">
@@ -27,8 +29,9 @@ export default async function SummonerBody(props: SummonerBodyProps) {
           <RankWidget leagueEntryPromise={leagueEntryPromise} />
         </Suspense>
       </div>
-      <div className="flex-1">
-        <div>우</div>
+      <div className="flex-1 space-y-2">
+        <SummaryWidget />
+        <MatchDetailWidget puuid={puuid} matchDetailList={matchDetailList ?? []} />
       </div>
     </div>
     // <Flex flexDirection={"column"} w="100%">

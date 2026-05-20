@@ -14,6 +14,32 @@ import { RefinedInGameInfo } from "@/components/inGame/InGame";
 import { ParticipantsData } from "@/types/types";
 import { variable } from "@/constants/temp";
 
+export const cn = (...classNames: (string | false | undefined)[]) => {
+  const styledClassNames = [...classNames]
+    .map((className) => className && className.split(" "))
+    .flat()
+    .filter((className) => className);
+
+  return styledClassNames.join(" ");
+};
+
+export function groupByToMap<T, K>(items: T[], getKey: (item: T) => K): Map<K, T[]> {
+  const grouped = new Map<K, T[]>();
+
+  for (const item of items) {
+    const key = getKey(item);
+    const group = grouped.get(key);
+
+    if (group) {
+      group.push(item);
+    } else {
+      grouped.set(key, [item]);
+    }
+  }
+
+  return grouped;
+}
+
 export function handleRiotId(riotId: string, sign: string) {
   const parts = riotId.split(sign);
   const name = parts[0];
@@ -109,11 +135,7 @@ export function getWinRate(wins: number, loses: number) {
 }
 
 // 팀 전체킬 대비 특정 플레이어의 킬 관여율
-export function getKillParticipationRate(
-  totalKills: number,
-  playerKills: number,
-  playerAssist: number
-) {
+export function getKillParticipationRate(totalKills: number, playerKills: number, playerAssist: number) {
   if (totalKills === 0) {
     return 0;
   }
@@ -144,15 +166,9 @@ export function getKDAColor(kda: any): string {
 }
 
 // CS 계산 gameDuration 인자가 있으면 총 CS가 아닌 분당 CS return
-export function getCS(
-  neutralMinionsKills: number,
-  totalMinionsKills: number,
-  gameDuration?: number
-) {
+export function getCS(neutralMinionsKills: number, totalMinionsKills: number, gameDuration?: number) {
   if (gameDuration) {
-    return ((neutralMinionsKills + totalMinionsKills) / gameDuration).toFixed(
-      1
-    );
+    return ((neutralMinionsKills + totalMinionsKills) / gameDuration).toFixed(1);
   }
   return neutralMinionsKills + totalMinionsKills;
 }
@@ -449,13 +465,9 @@ export function getRefinedParticipant(participant: ParticipantInfo) {
   // )
 
   const summonersSpell = getSummonersSpellName(summoner1Id, summoner2Id);
-  const rune = getRuneName(
-    participant.perks.styles[0].selections[0].perk,
-    participant.perks.styles[1].style
-  );
+  const rune = getRuneName(participant.perks.styles[0].selections[0].perk, participant.perks.styles[1].style);
 
-  const dealtToChampion =
-    physicalDamageDealtToChampions + magicDamageDealtToChampions;
+  const dealtToChampion = physicalDamageDealtToChampions + magicDamageDealtToChampions;
   const items = [item0, item1, item2, item3, item4, item5];
 
   return {
@@ -491,48 +503,24 @@ export function getRefinedParticipant(participant: ParticipantInfo) {
 }
 
 export function getRefinedTeamStats(team: RefinedParticipantInfo[]) {
-  const totalKills = team.reduce(function add(
-    sum: any,
-    item: RefinedParticipantInfo
-  ) {
+  const totalKills = team.reduce(function add(sum: any, item: RefinedParticipantInfo) {
     return sum + item.kills;
-  },
-  0);
-  const totalBaronKills = team.reduce(function add(
-    sum: any,
-    item: RefinedParticipantInfo
-  ) {
+  }, 0);
+  const totalBaronKills = team.reduce(function add(sum: any, item: RefinedParticipantInfo) {
     return sum + item.baronKills;
-  },
-  0);
-  const totalTurretKills = team.reduce(function add(
-    sum: any,
-    item: RefinedParticipantInfo
-  ) {
+  }, 0);
+  const totalTurretKills = team.reduce(function add(sum: any, item: RefinedParticipantInfo) {
     return sum + item.turretKills;
-  },
-  0);
-  const totalDragonKills = team.reduce(function add(
-    sum: any,
-    item: RefinedParticipantInfo
-  ) {
+  }, 0);
+  const totalDragonKills = team.reduce(function add(sum: any, item: RefinedParticipantInfo) {
     return sum + item.dragonKills;
-  },
-  0);
-  const totalGold = team.reduce(function add(
-    sum: any,
-    item: RefinedParticipantInfo
-  ) {
+  }, 0);
+  const totalGold = team.reduce(function add(sum: any, item: RefinedParticipantInfo) {
     return sum + item.goldEarned;
-  },
-  0);
-  const totalDealtToChampion = team.reduce(function add(
-    sum: any,
-    item: RefinedParticipantInfo
-  ) {
+  }, 0);
+  const totalDealtToChampion = team.reduce(function add(sum: any, item: RefinedParticipantInfo) {
     return sum + item.dealtToChampion;
-  },
-  0);
+  }, 0);
   return {
     totalKills,
     totalBaronKills,
@@ -550,22 +538,17 @@ export function getMatchStatistics(match: any, puuid: string) {
     return null;
   }
   // 모든 플레이어 정제 스탯 추출
-  const refinedParticipants: RefinedParticipantInfo[] =
-    match.info.participants.map((participant: ParticipantInfo) =>
-      getRefinedParticipant(participant)
-    );
+  const refinedParticipants: RefinedParticipantInfo[] = match.info.participants.map((participant: ParticipantInfo) =>
+    getRefinedParticipant(participant),
+  );
 
   const currentPlayer: RefinedParticipantInfo = refinedParticipants.filter(
-    (participant: RefinedParticipantInfo) => puuid === participant.puuid
+    (participant: RefinedParticipantInfo) => puuid === participant.puuid,
   )[0];
 
   //양팀 정보
-  const teamA = refinedParticipants.filter(
-    (player: RefinedParticipantInfo) => player.teamId === currentPlayer?.teamId
-  );
-  const teamB = refinedParticipants.filter(
-    (player: RefinedParticipantInfo) => player.teamId !== currentPlayer?.teamId
-  );
+  const teamA = refinedParticipants.filter((player: RefinedParticipantInfo) => player.teamId === currentPlayer?.teamId);
+  const teamB = refinedParticipants.filter((player: RefinedParticipantInfo) => player.teamId !== currentPlayer?.teamId);
   const teamAStats = getRefinedTeamStats(teamA);
   const teamBStats = getRefinedTeamStats(teamB);
   //게임 정보
@@ -598,8 +581,7 @@ export function fixedChampionName(championName: string) {
 export function translateKorChampionName(championName: string) {
   const championsObj: any = championsData.data;
   if (championsObj[fixedChampionName(championName)]) {
-    const koreanChampionName =
-      championsObj[fixedChampionName(championName)].name;
+    const koreanChampionName = championsObj[fixedChampionName(championName)].name;
     return koreanChampionName;
   }
 
@@ -607,16 +589,7 @@ export function translateKorChampionName(championName: string) {
 }
 
 export function refineInGameInfo(inGameInfo: InGameInfo) {
-  const {
-    bannedChampions,
-    gameId,
-    gameStartTime,
-    gameMode,
-    gameType,
-    mapId,
-    participants,
-    platformId,
-  } = inGameInfo;
+  const { bannedChampions, gameId, gameStartTime, gameMode, gameType, mapId, participants, platformId } = inGameInfo;
 
   const refinedParticipants = participants.map((participant, idx) => {
     let bannedChampion;
@@ -662,13 +635,9 @@ export function refineInGameInfo(inGameInfo: InGameInfo) {
     return addBanToParticipant;
   });
 
-  const blueTeam = refinedParticipants.filter(
-    (participant) => participant.teamId === 100
-  );
+  const blueTeam = refinedParticipants.filter((participant) => participant.teamId === 100);
 
-  const purpleTeam = refinedParticipants.filter(
-    (participant) => participant.teamId === 200
-  );
+  const purpleTeam = refinedParticipants.filter((participant) => participant.teamId === 200);
 
   const result: any = {
     blueTeam,
@@ -683,14 +652,10 @@ export function refineInGameInfo(inGameInfo: InGameInfo) {
   return result;
 }
 
-export function getMostChampions(
-  matchHistory: MatchInfoObj[] | null,
-  puuid: string
-) {
+export function getMostChampions(matchHistory: MatchInfoObj[] | null, puuid: string) {
   if (!matchHistory) return;
   const filtered = matchHistory?.map(
-    (game) =>
-      game?.info.participants.filter((player: any) => player.puuid === puuid)[0]
+    (game) => game?.info.participants.filter((player: any) => player.puuid === puuid)[0],
   );
 
   const removeUndefined: any = filtered?.filter((item) => item !== undefined);
@@ -699,9 +664,7 @@ export function getMostChampions(
     acc[key] = (acc[key] || []).concat(obj);
     return acc;
   }, {});
-  const mostList = Object.values(most).sort(
-    (a: any, b: any) => b.length - a.length
-  );
+  const mostList = Object.values(most).sort((a: any, b: any) => b.length - a.length);
 
   return mostList;
 }
@@ -710,29 +673,13 @@ export function getMostChampionsStats(championsStats: ParticipantInfo[]) {
   const ChampionName: string = championsStats[0].championName;
   const gameQty = championsStats.length;
   const totalKills = championsStats.reduce((sum, { kills }) => sum + kills, 0);
-  const totalDeaths = championsStats.reduce(
-    (sum, { deaths }) => sum + deaths,
-    0
-  );
-  const totalAssists = championsStats.reduce(
-    (sum, { assists }) => sum + assists,
-    0
-  );
-  const totalMobKills = championsStats.reduce(
-    (sum, { neutralMinionsKilled }) => sum + neutralMinionsKilled,
-    0
-  );
-  const totalMinionKills = championsStats.reduce(
-    (sum, { totalMinionsKilled }) => sum + totalMinionsKilled,
-    0
-  );
+  const totalDeaths = championsStats.reduce((sum, { deaths }) => sum + deaths, 0);
+  const totalAssists = championsStats.reduce((sum, { assists }) => sum + assists, 0);
+  const totalMobKills = championsStats.reduce((sum, { neutralMinionsKilled }) => sum + neutralMinionsKilled, 0);
+  const totalMinionKills = championsStats.reduce((sum, { totalMinionsKilled }) => sum + totalMinionsKilled, 0);
   const TotalCs = totalMobKills + totalMinionKills;
-  const wins = championsStats.filter(
-    (champion) => champion.win === true
-  ).length;
-  const lose = championsStats.filter(
-    (champion) => champion.win === false
-  ).length;
+  const wins = championsStats.filter((champion) => champion.win === true).length;
+  const lose = championsStats.filter((champion) => champion.win === false).length;
   //평균
   const csAverage = (TotalCs / gameQty).toFixed(1);
   const kdaAverage = getKDA(totalKills, totalDeaths, totalAssists);

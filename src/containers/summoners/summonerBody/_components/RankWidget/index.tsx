@@ -1,6 +1,6 @@
 "use client";
 
-import { LeagueEntryDto } from "@/types/riot-dto";
+import type { LeagueEntryDto } from "@/types/riot";
 import { use } from "react";
 
 interface RankWidgetProps {
