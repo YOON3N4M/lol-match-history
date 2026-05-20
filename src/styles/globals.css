@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import "./layout.css";
 html,
 body {
   margin: 0;
@@ -30,6 +30,10 @@ body {
 }
 
 @theme {
+  /* spacing */
+  --spacing-layout: 1080px;
+
+  /* color */
   --color-main-100: var(--color-main-900);
   --color-main-200: var(--color-main-800);
   --color-main-300: var(--color-main-800);
