@@ -1,31 +1,7 @@
-import { variable } from "@/constants/temp";
-import styled from "@emotion/styled";
-
 export default function LoadingSpinner() {
   return (
-    <StyledContainer>
-      <div className="spinner"></div>
-    </StyledContainer>
+    <div className="pt-[30px]">
+      <div className="mx-auto box-border h-[50px] w-[50px] animate-spin rounded-full border-[3px] border-white border-t-[#4171d6]" />
+    </div>
   );
 }
-
-const StyledContainer = styled.div`
-  padding-top: 30px;
-  .spinner {
-    margin: 0 auto;
-    width: 50px;
-    height: 50px;
-    box-sizing: border-box;
-    border: 3px solid white;
-    border-top-color: ${variable.color.selectFontBlue};
-    border-radius: 100%;
-
-    animation: spin 1s ease-in-out infinite;
-  }
-
-  @keyframes spin {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`;

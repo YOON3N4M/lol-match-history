@@ -6,7 +6,6 @@ import { firebaseAPI } from "@/service/firebase";
 import { useEffect, useState } from "react";
 import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot/asset-url";
 import { useRouter } from "next/navigation";
-import { Box, Center, Flex, Text } from "@chakra-ui/react";
 
 export default function RecentSearched() {
   const [recentlyUser, setRecentlyUser] = useState<UserDocument[]>([]);
@@ -30,105 +29,75 @@ export default function RecentSearched() {
   }
 
   return (
-    <Box
-      position={"relative"}
-      mt={50}
-      w={{ pc: "1024px", mo: "100%" }}
-      maxH="500px"
-      bg={"white"}
-      borderRadius="4px"
-      overflow={"hidden"}
-      boxShadow="md"
-    >
-      <Box width={"100%"} p="10px 15px">
-        <Text fontWeight={700}>최근 갱신 (KR)</Text>
-      </Box>
-      <Box className="styled-scroll" overflowY={"scroll"} h="400px">
+    <section className="relative mt-[50px] max-h-[500px] w-full overflow-hidden rounded bg-white shadow-md md:w-[1024px]">
+      <div className="w-full px-[15px] py-2.5">
+        <p className="font-bold">최근 갱신 (KR)</p>
+      </div>
+      <div className="styled-scroll h-[400px] overflow-y-scroll">
         {recentlyUser.map((user) => (
-          <RecentSearchedUser user={user} onClick={handleSummonerClick} />
+          <RecentSearchedUser key={user.puuid} user={user} onClick={handleSummonerClick} />
         ))}
-      </Box>
-    </Box>
+      </div>
+    </section>
   );
 }
 
 function RecentSearchedUser(props: { user: UserDocument; onClick: (riotId: RiotId) => void }) {
   const { user, onClick } = props;
 
-  if (!user.riotId) return <Box key={user.puuid}></Box>;
+  if (!user.riotId) return <div />;
 
   const riotId = handleRiotId(user.riotId, "#");
-  let tier;
-  let rank;
-  if (user.league1) {
-    tier = user.league1.tier.toLowerCase().charAt(0).toUpperCase() + user.league1.tier.toLowerCase().substring(1);
-    rank = romeNumToArabNum(user.league1.rank);
-  }
+  const tier = user.league1
+    ? user.league1.tier.toLowerCase().charAt(0).toUpperCase() + user.league1.tier.toLowerCase().substring(1)
+    : undefined;
+  const rank = user.league1 ? romeNumToArabNum(user.league1.rank) : undefined;
 
   return (
-    <Flex
-      key={user.puuid}
-      w={"100%"}
-      position={"relative"}
-      p="10px 20px"
-      borderBottom="1px solid"
-      borderColor={"keyColor.border"}
-      alignItems="center"
-      cursor={"pointer"}
-      _hover={{ backgroundColor: "#f7f7f9" }}
+    <button
+      type="button"
+      className="relative flex w-full cursor-pointer items-center border-b border-[#ebeef1] px-5 py-2.5 text-left hover:bg-[#f7f7f9]"
       onClick={() => onClick(riotId)}
     >
-      <Box className="summoner-icon">
-        <Box position={"relative"} w={"50px"} h={"50px"} borderRadius="4px">
-          <img src={SUMMONER_PROFILE_ICON_URL(user.profileIconId)} />
-          <Box
-            className="summoner-level"
-            position="absolute"
-            bg={"rgb(28,28,31)"}
-            color="white"
-            p={"1px 7px"}
-            borderRadius="12px"
-            top="80%"
-            left="50%"
-            transform={"translateX(-50%)"}
-          >
-            <Text fontSize={"xs"}>{user.summonerLevel}</Text>
-          </Box>
-        </Box>
-      </Box>
-      <Box className="riot-id" ml="10px" minW="180px" maxW="180px" overflow="hidden">
-        <Text fontWeight={800}>
+      <div className="summoner-icon">
+        <div className="relative h-[50px] w-[50px] rounded">
+          <img src={SUMMONER_PROFILE_ICON_URL(user.profileIconId)} alt={`${riotId.name} profile icon`} />
+          <div className="summoner-level x-center absolute top-[80%] rounded-xl bg-[rgb(28,28,31)] px-[7px] py-px text-white">
+            <span className="text-xs">{user.summonerLevel}</span>
+          </div>
+        </div>
+      </div>
+      <div className="riot-id ml-2.5 min-w-[180px] max-w-[180px] overflow-hidden">
+        <p className="font-extrabold">
           {riotId.name}{" "}
-          <Text color={"keyColor.gray"} display={"inline"}>
+          <span className="inline text-[#9AA4AF]">
             #{riotId.tag}
-          </Text>
-        </Text>
-        <Text fontSize={"sm"}>KR</Text>
-      </Box>
-      <Flex className="rank" display={{ mo: "none", pc: "flex" }} alignItems={"center"} ml="auto">
+          </span>
+        </p>
+        <p className="text-sm">KR</p>
+      </div>
+      <div className="rank ml-auto hidden items-center md:flex">
         {user.league1 && (
           <>
-            <Center borderRadius={"50%"} className="badge" bg={"#f7f7f9"} w="50px" h={"50px"}>
-              <Box w="30px">
-                <img src={matchingTierImg(user.league1.tier)}></img>
-              </Box>
-            </Center>
-            <Box minW="100px" ml="8px" className="point" fontSize={"sm"}>
-              <Box>
-                <Text fontWeight={700}>
+            <div className="badge flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#f7f7f9]">
+              <div className="w-[30px]">
+                <img src={matchingTierImg(user.league1.tier)} alt={`${user.league1.tier} tier icon`} />
+              </div>
+            </div>
+            <div className="point ml-2 min-w-[100px] text-sm">
+              <div>
+                <p className="font-bold">
                   {tier} {rank}
-                </Text>
-              </Box>
-              <Text color={"keyColor.gray"} fontWeight={600}>
-                {user.league1.leaguePoints}LP
-              </Text>
-            </Box>
+                </p>
+              </div>
+              <p className="font-semibold text-[#9AA4AF]">{user.league1.leaguePoints}LP</p>
+            </div>
           </>
         )}
-      </Flex>
-      <Box className="time" ml="auto" fontSize={"sm"} color={"keyColor.gray"}>
-        <Text>{calculatedTimeDiffer(user.lastRequestTime)}</Text>
-      </Box>
-    </Flex>
+      </div>
+      <div className="time ml-auto text-sm text-[#9AA4AF]">
+        <p>{calculatedTimeDiffer(user.lastRequestTime)}</p>
+      </div>
+    </button>
   );
 }

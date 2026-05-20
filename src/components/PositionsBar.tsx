@@ -1,123 +1,40 @@
 import { positionIcon } from "@/constants";
-import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
 
 interface Props {
-  currentMatch: any;
+  currentMatch: Array<{ individualPosition: string }>;
 }
-
-const PositionUl = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin-top: 12px;
-`;
-const PositionIcon = styled.img`
-  width: 16px;
-  margin-top: 8px;
-`;
-
-const Bar = styled.div`
-  display: flex;
-  align-items: flex-end;
-  width: 16px;
-  height: 64px;
-  background-color: #dbe0e4;
-`;
-
-const Gauge = styled.div<{ height: string }>`
-  background-color: #5383e8;
-  width: 16px;
-  height: ${(props) => props.height};
-`;
-
-const Title = styled.div`
-  line-height: 16px;
-  font-size: 12px;
-  color: #758592;
-`;
 
 function PositionsBar({ currentMatch }: Props) {
   const { topIcon, jgIcon, midIcon, adcIcon, supIcon } = positionIcon;
-
-  const [positions, setPositions] = useState({
-    top: 0,
-    jungle: 0,
-    mid: 0,
-    adc: 0,
-    sup: 0,
-  });
-
-  useEffect(() => {
-    if (currentMatch.length !== 0) {
-      const top = currentMatch.filter(
-        (e: any) => e.individualPosition === "TOP"
-      ).length;
-      const jg = currentMatch.filter(
-        (e: any) => e.individualPosition === "JUNGLE"
-      ).length;
-      const mid = currentMatch.filter(
-        (e: any) => e.individualPosition === "MIDDLE"
-      ).length;
-      const adc = currentMatch.filter(
-        (e: any) => e.individualPosition === "BOTTOM"
-      ).length;
-      const sup = currentMatch.filter(
-        (e: any) => e.individualPosition === "UTILITY"
-      ).length;
-      setPositions((prev) => {
-        return {
-          ...prev,
-          top: top,
-          jungle: jg,
-          mid: mid,
-          adc: adc,
-          sup: sup,
-        };
-      });
-    }
-  }, [currentMatch]);
-
-  const topP = `${Math.round((positions.top / currentMatch.length) * 100)}%`;
-  const jgP = `${Math.round((positions.jungle / currentMatch.length) * 100)}%`;
-  const midP = `${Math.round((positions.mid / currentMatch.length) * 100)}%`;
-  const adcP = `${Math.round((positions.adc / currentMatch.length) * 100)}%`;
-  const supP = `${Math.round((positions.sup / currentMatch.length) * 100)}%`;
+  const matchCount = currentMatch.length || 1;
+  const positions = {
+    top: currentMatch.filter((e) => e.individualPosition === "TOP").length,
+    jungle: currentMatch.filter((e) => e.individualPosition === "JUNGLE").length,
+    mid: currentMatch.filter((e) => e.individualPosition === "MIDDLE").length,
+    adc: currentMatch.filter((e) => e.individualPosition === "BOTTOM").length,
+    sup: currentMatch.filter((e) => e.individualPosition === "UTILITY").length,
+  };
+  const positionList = [
+    { id: "top", icon: topIcon, height: `${Math.round((positions.top / matchCount) * 100)}%`, alt: "top" },
+    { id: "jungle", icon: jgIcon, height: `${Math.round((positions.jungle / matchCount) * 100)}%`, alt: "jungle" },
+    { id: "mid", icon: midIcon, height: `${Math.round((positions.mid / matchCount) * 100)}%`, alt: "mid" },
+    { id: "adc", icon: adcIcon, height: `${Math.round((positions.adc / matchCount) * 100)}%`, alt: "adc" },
+    { id: "sup", icon: supIcon, height: `${Math.round((positions.sup / matchCount) * 100)}%`, alt: "support" },
+  ];
 
   return (
     <>
-      <Title>선호 포지션</Title>
-      <PositionUl>
-        <li>
-          <Bar>
-            <Gauge height={topP}></Gauge>
-          </Bar>
-          <PositionIcon src={topIcon} />
-        </li>
-        <li>
-          <Bar>
-            <Gauge height={jgP}></Gauge>
-          </Bar>
-          <PositionIcon src={jgIcon} />
-        </li>
-        <li>
-          <Bar>
-            <Gauge height={midP}></Gauge>
-          </Bar>
-          <PositionIcon src={midIcon} />
-        </li>
-        <li>
-          <Bar>
-            <Gauge height={adcP}></Gauge>
-          </Bar>
-          <PositionIcon src={adcIcon} />
-        </li>
-        <li>
-          <Bar>
-            <Gauge height={supP}></Gauge>
-          </Bar>
-          <PositionIcon src={supIcon} />
-        </li>
-      </PositionUl>
+      <div className="text-xs leading-4 text-[#758592]">선호 포지션</div>
+      <div className="mt-3 flex justify-around">
+        {positionList.map((position) => (
+          <div key={position.id}>
+            <div className="flex h-16 w-4 items-end bg-[#dbe0e4]">
+              <div className="w-4 bg-[#5383e8]" style={{ height: position.height }} />
+            </div>
+            <img className="mt-2 w-4" src={position.icon} alt={position.alt} />
+          </div>
+        ))}
+      </div>
     </>
   );
 }

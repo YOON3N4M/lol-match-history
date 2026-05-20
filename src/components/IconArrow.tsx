@@ -1,5 +1,3 @@
-import styled from "@emotion/styled";
-
 interface IconArrowProps {
   direction: "right" | "left" | "top" | "bottom";
 }
@@ -22,20 +20,13 @@ function IconArrow(props: IconArrowProps) {
     }
   }
   return (
-    <Arrow
+    <div
+      className="h-[7px] w-[7px] border-r border-t border-black opacity-50"
       style={{
         transform: `${handleDirection()}`,
       }}
     />
   );
 }
-
-const Arrow = styled.div`
-  width: 7px;
-  height: 7px;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  opacity: 0.5;
-`;
 
 export default IconArrow;

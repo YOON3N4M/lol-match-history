@@ -12,14 +12,14 @@ javascript로 만들었던 [기존 프로젝트](https://github.com/YOON3N4M/lol
 <br/>
 
 ## Stacks
-<strong>Front</strong> : Next.js, typescript, zustand, chakra ui(emotion) <br/>
+<strong>Front</strong> : Next.js, typescript, zustand, Tailwind CSS <br/>
 <strong>DB</strong> : firebase
 
 <br/>
 
 ## Update
 #### 24.03 
-* styled-compoent -> emotion 변경후 일부 기능 제외 반응형 구현
+* 일부 기능 제외 반응형 구현
 * zustand 도입
 * pages / containers 폴더 구조 변경
 * 코드 리팩토링 / 개선 중 ...
@@ -47,5 +47,3 @@ javascript로 만들었던 [기존 프로젝트](https://github.com/YOON3N4M/lol
 * map으로 대체가능한 반복 작업 등을 map으로 코드 수정/개선
 * 전체적인 코드 개선 
 * 챔피언 이름 한글화
-
-
