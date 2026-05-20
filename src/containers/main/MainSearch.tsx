@@ -1,29 +1,45 @@
 "use client";
 
-import SearchInput from "@/components/SearchInput";
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { handleRiotId } from "@/utils/riot";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, SubmitEvent, useState } from "react";
 
 export default function MainSearch() {
+  const [keyword, setKeyword] = useState("");
+
+  const router = useRouter();
+
+  function handleChange(event: ChangeEvent<HTMLInputElement, HTMLInputElement>) {
+    setKeyword(event.target.value);
+  }
+
+  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const riotId = handleRiotId(keyword, "#");
+    const { name, tag } = riotId;
+    router.push(`/summoners/kr/${name}-${tag}`);
+  }
+
   return (
-    <div className="flex w-[800px] h-[60px] bg-white rounded-[30px] shadow-md justify-between items-center mx-auto p-1">
-      <Box w={{ pc: "234px", mo: "80px" }} h="40px" pl={{ pc: 4, mo: 2 }}>
-        <Box as="label" display={"block"} fontSize="xs" fontWeight={700}>
-          Region
-        </Box>
-        <Text color={"keyColor.gray"} fontSize="sm">
-          Korea
-        </Text>
-      </Box>
-      <Divider orientation="vertical" h={"40%"} mr={{ pc: 8, mo: 4 }} />
-      <Box position="relative" flex={1}>
-        <Box as="label" display={"block"} fontSize="xs" fontWeight={700}>
-          Search
-        </Box>
-        <SearchInput />
-      </Box>
-      <Box as="button" color={"keyColor.sky"} fontWeight={700} fontSize="2xl">
-        .GG
-      </Box>
+    <div className="w-[800px] h-[60px] bg-white rounded-[30px] mx-auto mt-24 px-4 py-2 ">
+      <form onSubmit={handleSubmit} className="flex items-center">
+        <div className="flex-1 max-w-[234px] flex-col flex gap-1 pl-4">
+          <span className="text-xs font-bold">Region</span>
+          <span className="text-sm text-gray-400">Korea</span>
+        </div>
+        <div className="flex-1">
+          <input
+            className="size-full text-sm outline-none"
+            onChange={handleChange}
+            value={keyword}
+            placeholder="플레이어 이름 + #KR1"
+          />
+        </div>
+        <button className="font-extrabold text-main-500 text-2xl" type="submit">
+          .GG
+        </button>
+      </form>
     </div>
   );
 }
