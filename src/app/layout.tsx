@@ -1,23 +1,20 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-import Layout from "@/components/layout/Layout";
-
 import "../styles/globals.css";
-import Providers from "./providers";
+import Header from "./_common/Header";
 
 export const metadata: Metadata = {
-  title: "LOL Match History",
-  description: "League of Legends match history search",
+  title: "33.GG",
+  description: "리그오브레전드 게임전적 조회 서비스를 제공합니다.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
       <body>
-        <Providers>
-          <Layout>{children}</Layout>
-        </Providers>
+        <Header />
+        {children}
       </body>
     </html>
   );
