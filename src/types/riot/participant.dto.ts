@@ -1,0 +1,37 @@
+export interface ParticipantDto {
+  riotIdGameName: string;
+  riotIdTagline: "KR1" | string;
+  championName: string;
+  item0: number;
+  item1: number;
+  item2: number;
+  item3: number;
+  item4: number;
+  item5: number;
+  item6: number;
+  summoner1Id: number;
+  summoner2Id: number;
+  perks: any;
+  teamId: 100 | 200 | number;
+  summonerName: string;
+  kills: number;
+  assists: number;
+  win: boolean;
+  deaths: number;
+  queueId: number;
+  visionWardsBoughtInGame: number;
+  neutralMinionsKilled: number;
+  totalMinionsKilled: number;
+  champLevel: number;
+  physicalDamageDealtToChampions: number;
+  magicDamageDealtToChampions: number;
+  totalDamageTaken: number;
+  wardsKilled: number;
+  wardsPlaced: number;
+  goldEarned: number;
+  dragonKills: number;
+  baronKills: number;
+  turretKills: number;
+  championId: number;
+  puuid: string;
+}
