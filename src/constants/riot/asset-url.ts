@@ -1,4 +1,4 @@
-import { fixedChampionName } from "@/utils";
+import { fixedChampionName } from "@/utils/riot";
 import { DATA_DRAGON_VERSION } from "..";
 
 /**

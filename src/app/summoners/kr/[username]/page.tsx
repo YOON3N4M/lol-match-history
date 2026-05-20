@@ -1,7 +1,7 @@
 import SummonersContainer from "@/containers/summoners";
 import { getAccountByRiotId } from "@/service/riot/asia/account.service";
 import { getSummonerByPuuid } from "@/service/riot/kr/summoner.service";
-import { handleRiotId } from "@/utils";
+import { handleRiotId } from "@/utils/riot";
 import { notFound } from "next/navigation";
 
 export default async function SummonersPage({ params }: { params: Promise<{ username: string }> }) {

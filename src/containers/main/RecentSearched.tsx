@@ -1,10 +1,7 @@
 import { RiotId, UserDocument } from "@/types/types";
-import {
-  calculatedTimeDiffer,
-  handleRiotId,
-  matchingTierImg,
-  romeNumToArabNum,
-} from "@/utils";
+import { calculatedTimeDiffer } from "@/utils";
+
+import { handleRiotId, matchingTierImg, romeNumToArabNum } from "@/utils/riot";
 import { firebaseAPI } from "@/service/firebase";
 import { useEffect, useState } from "react";
 import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot/asset-url";
@@ -21,10 +18,7 @@ export default function RecentSearched() {
       const collection = await firebaseAPI.getUserCollection();
       const sortByLastRequestTime = collection
         .slice()
-        .sort(
-          (a: UserDocument, b: UserDocument) =>
-            b.lastRequestTime - a.lastRequestTime
-        );
+        .sort((a: UserDocument, b: UserDocument) => b.lastRequestTime - a.lastRequestTime);
       setRecentlyUser(sortByLastRequestTime);
     }
 
@@ -58,10 +52,7 @@ export default function RecentSearched() {
   );
 }
 
-function RecentSearchedUser(props: {
-  user: UserDocument;
-  onClick: (riotId: RiotId) => void;
-}) {
+function RecentSearchedUser(props: { user: UserDocument; onClick: (riotId: RiotId) => void }) {
   const { user, onClick } = props;
 
   if (!user.riotId) return <Box key={user.puuid}></Box>;
@@ -70,9 +61,7 @@ function RecentSearchedUser(props: {
   let tier;
   let rank;
   if (user.league1) {
-    tier =
-      user.league1.tier.toLowerCase().charAt(0).toUpperCase() +
-      user.league1.tier.toLowerCase().substring(1);
+    tier = user.league1.tier.toLowerCase().charAt(0).toUpperCase() + user.league1.tier.toLowerCase().substring(1);
     rank = romeNumToArabNum(user.league1.rank);
   }
 
@@ -107,13 +96,7 @@ function RecentSearchedUser(props: {
           </Box>
         </Box>
       </Box>
-      <Box
-        className="riot-id"
-        ml="10px"
-        minW="180px"
-        maxW="180px"
-        overflow="hidden"
-      >
+      <Box className="riot-id" ml="10px" minW="180px" maxW="180px" overflow="hidden">
         <Text fontWeight={800}>
           {riotId.name}{" "}
           <Text color={"keyColor.gray"} display={"inline"}>
@@ -122,21 +105,10 @@ function RecentSearchedUser(props: {
         </Text>
         <Text fontSize={"sm"}>KR</Text>
       </Box>
-      <Flex
-        className="rank"
-        display={{ mo: "none", pc: "flex" }}
-        alignItems={"center"}
-        ml="auto"
-      >
+      <Flex className="rank" display={{ mo: "none", pc: "flex" }} alignItems={"center"} ml="auto">
         {user.league1 && (
           <>
-            <Center
-              borderRadius={"50%"}
-              className="badge"
-              bg={"#f7f7f9"}
-              w="50px"
-              h={"50px"}
-            >
+            <Center borderRadius={"50%"} className="badge" bg={"#f7f7f9"} w="50px" h={"50px"}>
               <Box w="30px">
                 <img src={matchingTierImg(user.league1.tier)}></img>
               </Box>

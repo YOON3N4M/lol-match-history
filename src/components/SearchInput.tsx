@@ -1,4 +1,4 @@
-import { handleRiotId } from "@/utils";
+import { handleRiotId } from "@/utils/riot";
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/navigation";
@@ -61,21 +61,13 @@ export default function SearchInput() {
       </form>
       {isToolTip && (
         <StyledToolTip>
-          <p className="notice">
-            현재 대소문자를 정확히 입력해야만 정상적인 검색이 가능 합니다.
-          </p>
+          <p className="notice">현재 대소문자를 정확히 입력해야만 정상적인 검색이 가능 합니다.</p>
           {translatedName === "" ? (
             <div className="head">
               <div>
                 <span className="tip">기존 닉네임 검색 ( 이름#KR1 )</span>
               </div>
-              <div>
-                {username !== "" && (
-                  <span className="translate">
-                    {username.split("#")[0]}#KR1
-                  </span>
-                )}
-              </div>
+              <div>{username !== "" && <span className="translate">{username.split("#")[0]}#KR1</span>}</div>
             </div>
           ) : (
             <div className="head">
