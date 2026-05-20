@@ -7,15 +7,46 @@ body {
   background-color: #ebeef1;
 }
 
-.styled-scroll::-webkit-scrollbar {
-  width: 5px;
+:root {
+  --color-main-100: #ecf2ff;
+  --color-main-200: #d5e3ff;
+  --color-main-300: #b3cdff;
+  --color-main-400: #81acff;
+  --color-main-500: #5383e8;
+  --color-main-600: #4171d6;
+  --color-main-700: #2f5ec0;
+  --color-main-800: #2f436e;
+  --color-main-900: #28344e;
+
+  --color-red-100: #fff1f3;
+  --color-red-200: #ffd8d9;
+  --color-red-300: #ffbac3;
+  --color-red-400: #ff6c81;
+  --color-red-500: #e84057;
+  --color-red-600: #d31a45;
+  --color-red-700: #b61337;
+  --color-red-800: #703c47;
+  --color-red-900: #59343b;
 }
 
-.styled-scroll::-webkit-scrollbar-thumb {
-  background-color: #88888875;
-  border-radius: 6px;
-}
+@theme {
+  --color-main-100: var(--color-main-900);
+  --color-main-200: var(--color-main-800);
+  --color-main-300: var(--color-main-800);
+  --color-main-400: var(--color-main-600);
+  --color-main-500: var(--color-main-500);
+  --color-main-600: var(--color-main-500);
+  --color-main-700: var(--color-main-500);
+  --color-main-800: var(--color-main-400);
+  --color-main-900: var(--color-main-400);
 
-.styled-scroll::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
+  --color-red-100: var(--color-red-900);
+  --color-red-200: var(--color-red-800);
+  --color-red-300: var(--color-red-800);
+  --color-red-400: var(--color-red-600);
+  --color-red-500: var(--color-red-500);
+  --color-red-600: var(--color-red-500);
+  --color-red-700: var(--color-red-500);
+  --color-red-800: var(--color-red-400);
+  --color-red-900: var(--color-red-400);
 }
