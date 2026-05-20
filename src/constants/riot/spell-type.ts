@@ -1,0 +1,16 @@
+export const SPELL_TYPE: Record<number, string> = {
+  11: "SummonerSmite",
+  4: "SummonerFlash",
+  6: "SummonerHaste",
+  7: "SummonerHeal",
+  12: "SummonerTeleport",
+  21: "SummonerBarrier",
+  14: "SummonerDot",
+  3: "SummonerExhaust",
+  13: "SummonerMana",
+  1: "SummonerBoost",
+  32: "SummonerSnowball",
+  39: "SummonerSnowURFSnowball_Mark",
+  2202: "SummonerCherryFlash",
+  2201: "SummonerCherryHold",
+};
