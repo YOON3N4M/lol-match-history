@@ -23,7 +23,7 @@ export default async function SummonerBody(props: SummonerBodyProps) {
   console.log(matchDetailList);
 
   return (
-    <div className="max-w-[1080px] mx-auto flex gap-2 mt-2">
+    <div className="content-layout flex gap-2 mt-2">
       <div className="basis-[30.74%]">
         <Suspense>
           <RankWidget leagueEntryPromise={leagueEntryPromise} />

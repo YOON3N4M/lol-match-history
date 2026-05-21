@@ -2,9 +2,11 @@ import { QUEUE_TYPE } from "@/constants/riot";
 import { CHAMPION_ICON_URL } from "@/constants/riot/asset-url";
 import { MatchDto } from "@/types/riot";
 import { calculatedTimeDiffer, cn, groupByToMap } from "@/utils";
+import { getCS, getKDA } from "@/utils/riot";
+import { MATCH_RESULT_STYLE, MatchResult } from "../match-result-style";
 import ItemSlotList from "./ItemSlotList";
-import SpellSlotList from "./SpellSlotList";
 import PerksSlotList from "./PerksSlotList";
+import SpellSlotList from "./SpellSlotList";
 
 interface MatchDetailItem {
   puuid: string;
@@ -12,14 +14,15 @@ interface MatchDetailItem {
 }
 export default function MatchDetailItem(props: MatchDetailItem) {
   const { puuid, match } = props;
-  const { metadata, info } = match;
-  const { endOfGameResult, queueId, gameCreation, gameDuration, participants } = info;
+  const { info } = match;
+  const { queueId, gameCreation, gameDuration, participants } = info;
 
   const searchedParticipant = participants.find((part) => part.puuid === puuid);
 
   if (!searchedParticipant) return;
 
-  const { riotIdGameName, win, kills, deaths, assists, teamId, summoner1Id, summoner2Id, perks } = searchedParticipant;
+  const { win, kills, deaths, assists, summoner1Id, summoner2Id, perks, neutralMinionsKilled, totalMinionsKilled } =
+    searchedParticipant;
 
   /**
    * 게임 기본 정보
@@ -29,26 +32,37 @@ export default function MatchDetailItem(props: MatchDetailItem) {
   const gameCreationTime = calculatedTimeDiffer(gameCreation);
   const gameResult = isWin ? "승리" : "패배";
   const gameDurationTime = (gameDuration / 60).toFixed(0);
-  const kda = ((kills + assists) / deaths).toFixed(2);
+  const kda = getKDA(kills, deaths, assists);
+  const cs = getCS(neutralMinionsKilled, totalMinionsKilled, gameDuration);
 
   /**
    * 팀 그룹
    */
   const groupedTeam = groupByToMap(participants, (p) => p.teamId);
   const blueTeam = groupedTeam.get(100) ?? [];
-  const purpleTeam = groupedTeam.get(200) ?? [];
-  const teamList = [blueTeam, purpleTeam];
+  const redTeam = groupedTeam.get(200) ?? [];
+  const teamList = [blueTeam, redTeam];
+
+  /**
+   * 승/패에 따른 ui 컬러 분기
+   */
+  const matchResult: MatchResult = win ? "win" : "lose";
+  const matchResultStyle = MATCH_RESULT_STYLE[matchResult];
 
   return (
-    <div className={cn("rounded-[4px] overflow-hidden", isWin ? "bg-[#ecf2ff]" : "bg-[#fff1f3]")}>
-      <div className={cn("px-3 py-1 flex h-[96px] border-l-4!", isWin ? "border-[#5383E8]!" : "border-[#e84057]!")}>
+    <div className={cn("rounded-[4px] overflow-hidden", matchResultStyle.containerBg)}>
+      <div className={cn("px-3 py-1 flex h-[96px] border-l-[6px] items-center", matchResultStyle.border)}>
         {/* 좌측*/}
-        <div className="w-[108px] flex flex-col text-xs">
-          <span>{queueType}</span>
-          <span>{gameCreationTime}</span>
-          <span>{/* 구분선 필요 */}</span>
-          <span>{gameResult}</span>
-          <span>{gameDurationTime}분</span>
+        <div className="w-[108px] flex flex-col text-xs gap-2">
+          <div className="flex flex-col ">
+            <span className={cn("font-bold", matchResultStyle.text)}>{queueType}</span>
+            <span className="text-gray-600">{gameCreationTime}</span>
+          </div>
+          <span className={cn("w-12 h-[1px]", matchResultStyle.separate)}></span>
+          <div className="flex flex-col ">
+            <span className="font-bold text-gray-600">{gameResult}</span>
+            <span className="text-gray-600">{gameDurationTime}분</span>
+          </div>
         </div>
         {/* 중앙 */}
         <div className="w-[377px] flex flex-col gap-1">
@@ -76,26 +90,27 @@ export default function MatchDetailItem(props: MatchDetailItem) {
             </div>
             {/* kda */}
             <div className="max-w-[108px] flex flex-1 flex-col items-start gap-0.5">
-              <div className="flex items-center gap-1 text-[15px] leading-[22px]">
-                <span>{kills}</span>
-                <span>{deaths}</span>
-                <span>{assists}</span>
+              <div className="flex items-center gap-1 text-[15px] leading-[22px] text-gray-400">
+                <strong className="text-gray-900">{kills}</strong>/<strong className="text-red-600">{deaths}</strong>/
+                <strong className="text-gray-900">{assists}</strong>
               </div>
-              <div>{kda}:1 평점</div>
+              <div className="text-xs text-gray-500">{kda}:1 평점</div>
             </div>
             {/* 킬관여? */}
-            <div className="flex flex-col flex-1 items-start text-[11px]">
+            <div className="flex flex-col flex-1 items-start text-[11px] relative pl-2 text-gray-600">
+              <span className={cn("absolute left-0 h-full top-0 w-[1px]", matchResultStyle.separate)}></span>
               <span>킬관여</span>
-              <span>cs</span>
+              <span>
+                cs {`${cs.cs}`}
+                {cs.csPerMinute ? ` (${cs.csPerMinute})` : ""}
+              </span>
               <span>평균티어</span>
             </div>
           </div>
           <div></div>
           {/* 아이템 */}
           <div className="flex">
-            <ItemSlotList participant={searchedParticipant} />
-            {/* 칭호영역인데 없어도 될듯 */}
-            {/* <div className="flex"> </div> */}
+            <ItemSlotList matchResult={matchResult} participant={searchedParticipant} />
           </div>
         </div>
 

@@ -1,16 +1,18 @@
-type MatchResult = "win" | "lose";
+export type MatchResult = "win" | "lose";
 
 export const MATCH_RESULT_STYLE = {
   win: {
-    container: "bg-[#ecf2ff] border-[#5383E8]!",
-    text: "text-[#4171d6]",
-    subText: "text-[#5383E8]",
-    itemBg: "bg-[#b3cdff]",
+    containerBg: "bg-main-100 ",
+    border: "border-main-500",
+    separate: "bg-main-200",
+    text: "text-main-600",
+    itemSlotBg: "bg-main-300",
   },
   lose: {
-    container: "bg-[#fff1f3] border-[#e84057]!",
-    text: "text-[#d31a45]",
-    subText: "text-[#e84057]",
-    itemBg: "bg-[#ffbac3]",
+    containerBg: "bg-red-100 border-red-500",
+    border: "border-red-500",
+    separate: "bg-red-200",
+    text: "text-red-600",
+    itemSlotBg: "bg-red-300",
   },
 } satisfies Record<MatchResult, Record<string, string>>;
