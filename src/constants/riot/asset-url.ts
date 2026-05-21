@@ -1,5 +1,5 @@
 import { fixedChampionName } from "@/utils/riot/champion";
-import { DATA_DRAGON_VERSION } from "..";
+import { DATA_DRAGON_VERSION } from "./common";
 
 /**
  * 이미지 관련 URL

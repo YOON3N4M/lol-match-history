@@ -4,8 +4,6 @@ import MID_ICON from "@/img/lane/mid.svg";
 import ADC_ICON from "@/img/lane/adc.svg";
 import SUP_ICON from "@/img/lane/sup.svg";
 
-export const DATA_DRAGON_VERSION = "14.6.1";
-
 export const positionIcon = {
   topIcon: TOP_ICON.src,
   jgIcon: JG_ICON.src,

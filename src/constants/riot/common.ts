@@ -1,0 +1,1 @@
+export const DATA_DRAGON_VERSION = process.env.NEXT_PUBLIC_DATA_DRAGON_VERSION ?? "14.6.1";
