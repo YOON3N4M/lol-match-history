@@ -1,7 +1,7 @@
 import { RiotId, UserDocument } from "@/types/types";
 import { calculatedTimeDiffer } from "@/utils";
 
-import { handleRiotId, matchingTierImg, romeNumToArabNum } from "@/utils/riot";
+import { handleRiotId, getRankEmblemSrc, romeNumToArabNum } from "@/utils/riot";
 import { firebaseAPI } from "@/service/firebase";
 import { useEffect, useState } from "react";
 import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot/asset-url";
@@ -69,10 +69,7 @@ function RecentSearchedUser(props: { user: UserDocument; onClick: (riotId: RiotI
       </div>
       <div className="riot-id ml-2.5 min-w-[180px] max-w-[180px] overflow-hidden">
         <p className="font-extrabold">
-          {riotId.name}{" "}
-          <span className="inline text-[#9AA4AF]">
-            #{riotId.tag}
-          </span>
+          {riotId.name} <span className="inline text-[#9AA4AF]">#{riotId.tag}</span>
         </p>
         <p className="text-sm">KR</p>
       </div>
@@ -81,7 +78,7 @@ function RecentSearchedUser(props: { user: UserDocument; onClick: (riotId: RiotI
           <>
             <div className="badge flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#f7f7f9]">
               <div className="w-[30px]">
-                <img src={matchingTierImg(user.league1.tier)} alt={`${user.league1.tier} tier icon`} />
+                <img src={getRankEmblemSrc(user.league1.tier)} alt={`${user.league1.tier} tier icon`} />
               </div>
             </div>
             <div className="point ml-2 min-w-[100px] text-sm">

@@ -8,5 +8,6 @@ export {
   getMostChampionsStats,
   getWinRate,
 } from "./match-stats";
+export { createMatchParticipantsSummary } from "./match-participants-summary";
 export { getRankEmblemSrc, romeNumToArabNum } from "./rank";
 export { extractSummonerName, handleRiotId } from "./riot-id";

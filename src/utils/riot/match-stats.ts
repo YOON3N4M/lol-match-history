@@ -13,12 +13,12 @@ export function getWinRate(wins: number, loses: number) {
  * 팀 전체 킬 대비 킬 관여율을 반환함
  *
  */
-export function getKillParticipationRate(totalKills: number, playerKills: number, playerAssist: number) {
-  if (totalKills === 0) {
+export function getKillParticipationRate(teamKills: number, targetKills: number, targetAssists: number) {
+  if (teamKills === 0) {
     return 0;
   }
 
-  return Math.round(((playerKills + playerAssist) / totalKills) * 100);
+  return Math.round(((targetKills + targetAssists) / teamKills) * 100);
 }
 
 /**
@@ -73,10 +73,18 @@ export function getKDAColor(kda: string | number): string {
  * UI용 CS를 문자열로 반환
  */
 export function getCS(neutralMinionsKills: number, totalMinionsKills: number, gameDuration?: number) {
+  let csPerMinute = null;
+
   if (gameDuration) {
-    return ((neutralMinionsKills + totalMinionsKills) / gameDuration).toFixed(1);
+    csPerMinute = ((neutralMinionsKills + totalMinionsKills) / (gameDuration / 60)).toFixed(1);
   }
-  return neutralMinionsKills + totalMinionsKills;
+
+  const result = {
+    cs: neutralMinionsKills + totalMinionsKills,
+    csPerMinute,
+  };
+
+  return result;
 }
 
 // 이 아래는 검토후 정리 필요

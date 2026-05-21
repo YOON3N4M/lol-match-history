@@ -1,8 +1,8 @@
 import { QUEUE_TYPE } from "@/constants/riot";
 import { CHAMPION_ICON_URL } from "@/constants/riot/asset-url";
 import { MatchDto } from "@/types/riot";
-import { calculatedTimeDiffer, cn, groupByToMap } from "@/utils";
-import { getCS, getKDA } from "@/utils/riot";
+import { calculatedTimeDiffer, cn } from "@/utils";
+import { createMatchParticipantsSummary } from "@/utils/riot";
 import { MATCH_RESULT_STYLE, MatchResult } from "../match-result-style";
 import ItemSlotList from "./ItemSlotList";
 import PerksSlotList from "./PerksSlotList";
@@ -17,11 +17,20 @@ export default function MatchDetailItem(props: MatchDetailItem) {
   const { info } = match;
   const { queueId, gameCreation, gameDuration, participants } = info;
 
-  const searchedParticipant = participants.find((part) => part.puuid === puuid);
+  /**
+   * 팀 그룹
+   */
+  const matchParticipantsSummary = createMatchParticipantsSummary(participants, gameDuration);
+  const searchedParticipant = matchParticipantsSummary.participantsByPuuid[puuid];
+  const blueTeam = matchParticipantsSummary["blueTeam"];
+  const redTeam = matchParticipantsSummary["redTeam"];
+  const teamList = [blueTeam, redTeam];
 
+  /**
+   * 검색된 유저 정보
+   */
   if (!searchedParticipant) return;
-
-  const { win, kills, deaths, assists, summoner1Id, summoner2Id, perks, neutralMinionsKilled, totalMinionsKilled } =
+  const { win, kills, deaths, assists, summoner1Id, summoner2Id, perks, csCount, csPerMinute, killParticipation, kda } =
     searchedParticipant;
 
   /**
@@ -32,16 +41,6 @@ export default function MatchDetailItem(props: MatchDetailItem) {
   const gameCreationTime = calculatedTimeDiffer(gameCreation);
   const gameResult = isWin ? "승리" : "패배";
   const gameDurationTime = (gameDuration / 60).toFixed(0);
-  const kda = getKDA(kills, deaths, assists);
-  const cs = getCS(neutralMinionsKilled, totalMinionsKilled, gameDuration);
-
-  /**
-   * 팀 그룹
-   */
-  const groupedTeam = groupByToMap(participants, (p) => p.teamId);
-  const blueTeam = groupedTeam.get(100) ?? [];
-  const redTeam = groupedTeam.get(200) ?? [];
-  const teamList = [blueTeam, redTeam];
 
   /**
    * 승/패에 따른 ui 컬러 분기
@@ -99,12 +98,11 @@ export default function MatchDetailItem(props: MatchDetailItem) {
             {/* 킬관여? */}
             <div className="flex flex-col flex-1 items-start text-[11px] relative pl-2 text-gray-600">
               <span className={cn("absolute left-0 h-full top-0 w-[1px]", matchResultStyle.separate)}></span>
-              <span>킬관여</span>
+              <span>킬관여 {killParticipation}%</span>
               <span>
-                cs {`${cs.cs}`}
-                {cs.csPerMinute ? ` (${cs.csPerMinute})` : ""}
+                cs {`${csCount}`}
+                {csPerMinute ? ` (${csPerMinute})` : ""}
               </span>
-              <span>평균티어</span>
             </div>
           </div>
           <div></div>
@@ -119,9 +117,12 @@ export default function MatchDetailItem(props: MatchDetailItem) {
           {teamList.map((team) => (
             <div className="flex flex-col gap-0.5 w-[80px]">
               {team.map((_participant) => (
-                <a className="w-full items-center flex gap-1">
+                <a
+                  className="w-full items-center flex gap-1"
+                  href={`/summoners/kr/${_participant.riotIdGameName}-${_participant.riotIdTagline}`}
+                >
                   <img src={CHAMPION_ICON_URL(_participant.championName)} className="w-4 rounded-[4px] bg-black" />
-                  <span className="flex-1 truncate text-xs">{_participant.riotIdGameName}</span>
+                  <span className="flex-1 truncate text-xs text-gray-500">{_participant.riotIdGameName}</span>
                 </a>
               ))}
             </div>
