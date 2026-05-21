@@ -1,5 +1,5 @@
-import { ITEM_ICON_URL } from "@/constants/riot/asset-url";
-import { ParticipantDto } from "@/types/riot/participant.dto";
+import { ITEM_ICON_URL } from "@/constants/riot";
+import type { ParticipantDto } from "@/types/riot";
 import { MATCH_RESULT_STYLE, MatchResult } from "../match-result-style";
 import { cn } from "@/utils";
 

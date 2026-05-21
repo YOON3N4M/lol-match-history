@@ -1,6 +1,5 @@
-import { PERKS_TYPE } from "@/constants/riot";
-import { RUNE_ICON_URL } from "@/constants/riot/asset-url";
-import { PerksDto } from "@/types/riot/perks.dto";
+import { PERKS_TYPE, RUNE_ICON_URL } from "@/constants/riot";
+import type { PerksDto } from "@/types/riot";
 import { cn } from "@/utils";
 
 interface PerksSlotListProps {

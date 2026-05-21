@@ -4,4 +4,6 @@ export type { LeagueEntryDto } from "./leagueEntry.dto";
 export type { MatchDto } from "./match.dto";
 export type { MatchInfoDto } from "./match-info.dto";
 export type { MatchMetadataDto } from "./match-metadata.dto";
+export type { ParticipantDto } from "./participant.dto";
+export type { PerksDto } from "./perks.dto";
 export type { SummonerDto } from "./summoner.dto";

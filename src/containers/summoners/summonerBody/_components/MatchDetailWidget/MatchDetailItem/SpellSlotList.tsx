@@ -1,5 +1,4 @@
-import { SPELL_TYPE } from "@/constants/riot";
-import { SUMMONER_SPELL_ICON_URL } from "@/constants/riot/asset-url";
+import { SPELL_TYPE, SUMMONER_SPELL_ICON_URL } from "@/constants/riot";
 
 interface SpellSlotListProps {
   spellIdList: number[];

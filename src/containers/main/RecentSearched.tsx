@@ -4,7 +4,7 @@ import { calculatedTimeDiffer } from "@/utils";
 import { handleRiotId, getRankEmblemSrc, romeNumToArabNum } from "@/utils/riot";
 import { firebaseAPI } from "@/service/firebase";
 import { useEffect, useState } from "react";
-import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot/asset-url";
+import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot";
 import { useRouter } from "next/navigation";
 
 export default function RecentSearched() {

@@ -1,5 +1,5 @@
 import { QUEUE_TYPE } from "@/constants/riot";
-import { CHAMPION_ICON_URL } from "@/constants/riot/asset-url";
+import { CHAMPION_ICON_URL } from "@/constants/riot";
 import { MatchDto } from "@/types/riot";
 import { calculatedTimeDiffer, cn } from "@/utils";
 import { createMatchParticipantsSummary } from "@/utils/riot";

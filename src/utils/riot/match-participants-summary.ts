@@ -1,5 +1,4 @@
-import type { MatchParticipantWithStats, MatchParticipantsSummary } from "@/types/riot/match-participants-summary";
-import type { ParticipantDto } from "@/types/riot/participant.dto";
+import type { MatchParticipantWithStats, MatchParticipantsSummary, ParticipantDto } from "@/types/riot";
 import { getCS, getKDA, getKillParticipationRate } from "./match-stats";
 
 const BLUE_TEAM_ID = 100;

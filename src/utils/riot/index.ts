@@ -2,7 +2,6 @@ export { fixedChampionName, translateKorChampionName } from "./champion";
 export {
   getCS,
   getKDA,
-  getKDAColor,
   getKillParticipationRate,
   getMostChampions,
   getMostChampionsStats,

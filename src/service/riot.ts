@@ -7,7 +7,7 @@ import {
   MATCH_INFO_URL,
   SUMMONER_BY_PUUID_ID,
   SUMMONER_INFO_URL,
-} from "@/constants/riot/api-url";
+} from "@/constants/riot";
 import axios from "axios";
 
 async function getSummonersInfo(summonersName: string) {

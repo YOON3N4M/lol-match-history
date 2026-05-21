@@ -1,6 +1,4 @@
-import { variable } from "@/constants/temp";
-import { MatchDto } from "@/types/riot";
-import { ParticipantDto } from "@/types/riot/participant.dto";
+import type { MatchDto, ParticipantDto } from "@/types/riot";
 
 /**
  * 승률을 반환
@@ -41,27 +39,6 @@ export function getKDA(kills: number, deaths: number, assists: number) {
   } else {
     return ((kills + assists) / deaths).toFixed(2).toString();
   }
-}
-
-/**
- * UI 표시용 KDA 색상 값을 반환
- */
-export function getKDAColor(kda: string | number): string {
-  if (kda === "Perfect") {
-    return variable.color.orange;
-  }
-
-  const numericKda = Number(kda);
-
-  if (numericKda >= 5) {
-    return variable.color.orange;
-  } else if (4 <= numericKda && numericKda < 5) {
-    return variable.color.sky;
-  } else if (3 <= numericKda && numericKda < 4) {
-    return variable.color.mint;
-  }
-
-  return variable.color.gray;
 }
 
 /**

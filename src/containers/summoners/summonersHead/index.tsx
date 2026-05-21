@@ -1,4 +1,4 @@
-import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot/asset-url";
+import { SUMMONER_PROFILE_ICON_URL } from "@/constants/riot";
 import type { RiotAccountDto, SummonerDto } from "@/types/riot";
 
 interface SummonerHeadProps {
