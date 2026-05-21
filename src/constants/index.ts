@@ -4,7 +4,6 @@ import MID_ICON from "@/img/lane/mid.svg";
 import ADC_ICON from "@/img/lane/adc.svg";
 import SUP_ICON from "@/img/lane/sup.svg";
 
-export const API_KEY = process.env.NEXT_PUBLIC_RIOT_API_KEY;
 export const DATA_DRAGON_VERSION = "14.6.1";
 
 export const positionIcon = {
