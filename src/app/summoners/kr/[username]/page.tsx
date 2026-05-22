@@ -1,36 +1,36 @@
 import SummonersContainer from "@/containers/summoners";
 import { getAccountByRiotId } from "@/service/riot/asia/account.service";
+import { getLeagueEntry } from "@/service/riot/kr/league.service";
 import { getSummonerByPuuid } from "@/service/riot/kr/summoner.service";
 import { handleRiotId } from "@/utils/riot";
 import { notFound } from "next/navigation";
 
+/**
+ * 라이엇 계정, 소환사 정보, 소환사 랭크 조회는 페이지를 위한
+ * 가장 필수적인 정보이기 때문에 해당 데이터들을 await
+ */
 export default async function SummonersPage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
   const { name, tag } = handleRiotId(username, "-");
 
-  // 계정 정보
+  /**
+   * 라이엇 계정 정보
+   */
   const account = await getAccountByRiotId(name, tag);
-
   if (!account) {
     notFound();
   }
-
   const { puuid } = account;
 
-  console.log(account);
-  // 소환사 정보
+  /**
+   * 소환사 정보
+   */
   const summoner = await getSummonerByPuuid(puuid);
-  console.log(account, summoner);
 
   /**
-   * 계정 정보와 소환사 정보는 필수 데이터이기때문에
-   * await 하여 처리하여 유저에게 먼저 ui 제공
-   *
-   * 리그(랭크) 정보 및 대전 정보는
-   * 1. 계정, 소환사 정보 이후에 순차적으로 이루어지는 요청
-   * 2. 상대적으로 응답이 오래걸리는 요청
-   * 이기때문에 순차적으로 제공
+   * 소환사 리그(랭크) 정보
    */
+  const leagueEntry = await getLeagueEntry(puuid);
 
-  return <SummonersContainer account={account} summoner={summoner} />;
+  return <SummonersContainer account={account} summoner={summoner} leagueEntry={leagueEntry} />;
 }

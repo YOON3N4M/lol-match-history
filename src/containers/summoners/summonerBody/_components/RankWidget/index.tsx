@@ -1,15 +1,13 @@
 import type { LeagueEntryDto } from "@/types/riot";
 import { getRankEmblemSrc, getWinRate } from "@/utils/riot";
-import { use } from "react";
 
 interface RankWidgetProps {
-  leagueEntryPromise: Promise<LeagueEntryDto[]>;
+  leagueEntry: LeagueEntryDto[];
 }
 
 export default function RankWidget(props: RankWidgetProps) {
-  const { leagueEntryPromise } = props;
+  const { leagueEntry } = props;
 
-  const leagueEntry = use(leagueEntryPromise);
   const soloRank = leagueEntry.find((league) => league.queueType === "RANKED_SOLO_5x5");
   const flexRank = leagueEntry.find((league) => league.queueType === "RANKED_FLEX_SR");
 
