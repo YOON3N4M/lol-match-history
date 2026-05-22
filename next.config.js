@@ -2,6 +2,12 @@
 
 const nextConfig = {
   reactStrictMode: false,
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
   images: {
     remotePatterns: [
       {

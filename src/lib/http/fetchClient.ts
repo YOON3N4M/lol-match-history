@@ -4,6 +4,10 @@ type RequestOptions = Omit<RequestInit, "body"> & {
   params?: Record<string, string | number | boolean | undefined>;
   body?: unknown;
   timeoutMs?: number;
+  next?: {
+    revalidate?: false | 0 | number;
+    tags?: string[];
+  };
 };
 
 type HttpClientOptions = {
