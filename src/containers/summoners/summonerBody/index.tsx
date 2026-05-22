@@ -1,9 +1,9 @@
-import { getMatchHistoryList } from "@/service/riot/asia/matches-history.service";
 import { getMatches } from "@/service/riot/asia/matches.service";
 import type { LeagueEntryDto, RiotAccountDto, SummonerDto } from "@/types/riot";
-import MatchDetailWidget from "./_components/MatchDetailWidget";
+import { Suspense } from "react";
+import MatchHistorySection from "./_components/MatchHistorySection";
+import MatchHistoryLoading from "./_components/MatchHistorySection/MatchHistoryLoading";
 import RankWidget from "./_components/RankWidget";
-import SummaryWidget from "./_components/SummaryWidget";
 
 interface SummonerBodyProps {
   account: RiotAccountDto;
@@ -11,23 +11,21 @@ interface SummonerBodyProps {
   leagueEntry: LeagueEntryDto[];
 }
 
-export default async function SummonerBody(props: SummonerBodyProps) {
+export default function SummonerBody(props: SummonerBodyProps) {
   const { account, summoner, leagueEntry } = props;
   const { puuid } = account;
 
-  const matchIdList = await getMatches(puuid);
-  const matchDetailList = await getMatchHistoryList(matchIdList);
-
-  console.log(matchDetailList);
+  const matchIdList = getMatches(puuid);
 
   return (
     <div className="content-layout flex gap-2 mt-2">
       <div className="basis-[30.74%]">
         <RankWidget leagueEntry={leagueEntry} />
       </div>
-      <div className="flex-1 space-y-2">
-        <SummaryWidget />
-        <MatchDetailWidget puuid={puuid} matchDetailList={matchDetailList ?? []} />
+      <div className="flex-1">
+        <Suspense fallback={<MatchHistoryLoading />}>
+          <MatchHistorySection searchedParticipantPuuid={puuid} matchIdListPromise={matchIdList} />
+        </Suspense>
       </div>
     </div>
   );

@@ -1,7 +1,12 @@
-export default function LoadingSpinner() {
+import { cn } from "@/utils";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
+
+export default function LoadingSpinner(props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
+  const { className, ...attrs } = props;
   return (
-    <div className="pt-[30px]">
-      <div className="mx-auto box-border h-[50px] w-[50px] animate-spin rounded-full border-[3px] border-white border-t-[#4171d6]" />
-    </div>
+    <div
+      className={cn(className, "box-border aspect-square animate-spin rounded-full border-[3px]  border-t-[#4171d6]!")}
+      {...attrs}
+    />
   );
 }
