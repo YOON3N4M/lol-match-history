@@ -10,6 +10,7 @@ export interface MatchParticipantWithStats extends ParticipantDto {
   killParticipation: number;
   csCount: number;
   csPerMinute: string | null;
+  itemList: number[];
 }
 
 /**

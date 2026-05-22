@@ -7,6 +7,8 @@ export const MATCH_RESULT_STYLE = {
     separate: "bg-main-200",
     text: "text-main-600",
     itemSlotBg: "bg-main-300",
+    chevron: "border-main-500",
+    detailButton: "bg-main-200 hover:bg-main-300",
   },
   lose: {
     containerBg: "bg-red-100 border-red-500",
@@ -14,5 +16,7 @@ export const MATCH_RESULT_STYLE = {
     separate: "bg-red-200",
     text: "text-red-600",
     itemSlotBg: "bg-red-300",
+    chevron: "border-red-500",
+    detailButton: "bg-red-200 hover:bg-red-300",
   },
 } satisfies Record<MatchResult, Record<string, string>>;

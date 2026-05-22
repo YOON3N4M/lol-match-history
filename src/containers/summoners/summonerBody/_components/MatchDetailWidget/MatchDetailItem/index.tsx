@@ -7,6 +7,7 @@ import { MATCH_RESULT_STYLE, MatchResult } from "../match-result-style";
 import ItemSlotList from "./ItemSlotList";
 import PerksSlotList from "./PerksSlotList";
 import SpellSlotList from "./SpellSlotList";
+import ChevronIcon from "@/components/common/ChevronIcon";
 
 interface MatchDetailItem {
   puuid: string;
@@ -30,8 +31,20 @@ export default function MatchDetailItem(props: MatchDetailItem) {
    * 검색된 유저 정보
    */
   if (!searchedParticipant) return;
-  const { win, kills, deaths, assists, summoner1Id, summoner2Id, perks, csCount, csPerMinute, killParticipation, kda } =
-    searchedParticipant;
+  const {
+    win,
+    kills,
+    deaths,
+    assists,
+    summoner1Id,
+    summoner2Id,
+    perks,
+    csCount,
+    csPerMinute,
+    killParticipation,
+    kda,
+    itemList,
+  } = searchedParticipant;
 
   /**
    * 게임 기본 정보
@@ -49,7 +62,7 @@ export default function MatchDetailItem(props: MatchDetailItem) {
   const matchResultStyle = MATCH_RESULT_STYLE[matchResult];
 
   return (
-    <div className={cn("rounded-[4px] overflow-hidden", matchResultStyle.containerBg)}>
+    <div className={cn("rounded-[4px] overflow-hidden flex", matchResultStyle.containerBg)}>
       <div className={cn("px-3 py-1 flex h-[96px] border-l-[6px] items-center", matchResultStyle.border)}>
         {/* 좌측*/}
         <div className="w-[108px] flex flex-col text-xs gap-2">
@@ -108,7 +121,7 @@ export default function MatchDetailItem(props: MatchDetailItem) {
           <div></div>
           {/* 아이템 */}
           <div className="flex">
-            <ItemSlotList matchResult={matchResult} participant={searchedParticipant} />
+            <ItemSlotList matchResult={matchResult} itemList={itemList} />
           </div>
         </div>
 
@@ -129,6 +142,14 @@ export default function MatchDetailItem(props: MatchDetailItem) {
           ))}
         </div>
       </div>
+      <button
+        className={cn(
+          "basis-10 ml-auto p-2 flex flex-col justify-end items-center transition-colors",
+          matchResultStyle.detailButton,
+        )}
+      >
+        <ChevronIcon direction="bottom" className={matchResultStyle.chevron} />
+      </button>
     </div>
   );
 }

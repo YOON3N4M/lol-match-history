@@ -32,6 +32,15 @@ export function createMatchParticipantsSummary(
       killParticipation: getKillParticipationRate(teamKills, participant.kills, participant.assists),
       csCount: cs.cs,
       csPerMinute: cs.csPerMinute,
+      itemList: [
+        participant.item0,
+        participant.item1,
+        participant.item2,
+        participant.item3,
+        participant.item4,
+        participant.item5,
+        participant.item6,
+      ],
     };
 
     summary.participants.push(participantWithStats);

@@ -5,13 +5,11 @@ import { cn } from "@/utils";
 
 interface ItemSlotListProps {
   matchResult: MatchResult;
-  participant: ParticipantDto;
+  itemList: number[];
 }
 
 export default function ItemSlotList(props: ItemSlotListProps) {
-  const { matchResult, participant } = props;
-  const { item0, item1, item2, item3, item4, item5, item6 } = participant;
-  const itemList = [item0, item1, item2, item3, item4, item5, item6];
+  const { matchResult, itemList } = props;
 
   const hasItem = (itemId: number) => itemId !== 0;
   const matchResultStyle = MATCH_RESULT_STYLE[matchResult];
