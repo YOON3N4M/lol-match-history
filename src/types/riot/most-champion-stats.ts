@@ -4,8 +4,8 @@ export interface MostChampionStats {
   killAverage: number;
   deathAverage: number;
   assistAverage: number;
-  kdaAverage: string;
+  kdaAverage: number;
   winCount: number;
   loseCount: number;
-  winRate: string;
+  winRate: number;
 }

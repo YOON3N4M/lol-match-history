@@ -25,20 +25,33 @@ export function getKillParticipationRate(teamKills: number, targetKills: number,
  * @param deaths
  * @param assists
  * @returns
- * UI용 KDA를 문자열로 반환
- * Perfect
- * 0.00
- * number
+ *
+ * kda를 계산하여 숫자로 반환
  *
  */
-export function getKDA(kills: number, deaths: number, assists: number) {
+export function getKDA(kills: number, deaths: number, assists: number): number {
+  /**
+   * Perfect
+   */
   if (kills + assists > 0 && deaths === 0) {
-    return "Perfect";
+    return -1;
+    /**
+     * 0.00
+     */
   } else if (kills + deaths + assists === 0) {
-    return "0.00";
+    return 0;
   } else {
-    return ((kills + assists) / deaths).toFixed(2).toString();
+    return Math.round(((kills + assists) / deaths) * 100) / 100;
   }
+}
+
+/**
+ * 숫자 kda를 ui 문자로 반환
+ */
+export function getKDADisplay(kda: number) {
+  if (kda < 0) return "Perfect";
+  if (kda == 0) return "0.00";
+  if (kda > 0) return kda;
 }
 
 /**

@@ -2,7 +2,7 @@ import { QUEUE_TYPE } from "@/constants/riot";
 import { CHAMPION_ICON_URL } from "@/constants/riot";
 import { MatchDto } from "@/types/riot";
 import { calculatedTimeDiffer, cn } from "@/utils";
-import { createMatchParticipantsSummary } from "@/utils/riot";
+import { createMatchParticipantsSummary, getKDADisplay } from "@/utils/riot";
 import { MATCH_RESULT_STYLE, MatchResult } from "../match-result-style";
 import ItemSlotList from "./ItemSlotList";
 import PerksSlotList from "./PerksSlotList";
@@ -46,6 +46,7 @@ export default function MatchDetailItem(props: MatchDetailItem) {
     itemList,
   } = searchedParticipant;
 
+  const kdaDisplay = getKDADisplay(kda);
   /**
    * 게임 기본 정보
    */
@@ -106,7 +107,7 @@ export default function MatchDetailItem(props: MatchDetailItem) {
                 <strong className="text-gray-900">{kills}</strong>/<strong className="text-red-600">{deaths}</strong>/
                 <strong className="text-gray-900">{assists}</strong>
               </div>
-              <div className="text-xs text-gray-500">{kda}:1 평점</div>
+              <div className="text-xs text-gray-500">{kdaDisplay}:1 평점</div>
             </div>
             {/* 킬관여? */}
             <div className="flex flex-col flex-1 items-start text-[11px] relative pl-2 text-gray-600">

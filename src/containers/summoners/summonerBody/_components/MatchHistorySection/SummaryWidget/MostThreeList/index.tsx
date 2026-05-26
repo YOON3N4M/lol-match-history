@@ -5,6 +5,19 @@ interface MostThreeListProps {
   mostChampionStatsList: MostChampionStats[];
 }
 
+function getWinRateTextColor(winRate: number) {
+  if (winRate >= 60) return "text-red-600";
+  return "text-gray-500";
+}
+
+function getKdaTextColor(kda: number) {
+  if (kda < 0 || kda >= 5) return "text-orange-500"; // Perfect 포함
+  if (kda >= 4) return "text-main-500";
+  if (kda >= 3) return "text-teal-500";
+
+  return "text-gray-600";
+}
+
 export default function MostThreeList(props: MostThreeListProps) {
   const { mostChampionStatsList } = props;
   return (
@@ -21,9 +34,9 @@ export default function MostThreeList(props: MostThreeListProps) {
             />
           </div>
           <div className="flex items-center gap-1">
-            <span className="text-red-600">{_champion.winRate}%</span>
-            <span className="text-gray-400">{`(${_champion.winCount}승 / ${_champion.loseCount}패)`}</span>
-            <span>{`${_champion.kdaAverage}:1 평점`}</span>
+            <span className={getWinRateTextColor(_champion.winRate)}>{_champion.winRate}%</span>
+            <span className="text-gray-400 ">{`(${_champion.winCount}승 / ${_champion.loseCount}패)`}</span>
+            <span className={getKdaTextColor(_champion.kdaAverage)}>{`${_champion.kdaAverage}:1 평점`}</span>
           </div>
         </div>
       ))}

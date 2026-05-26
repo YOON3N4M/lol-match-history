@@ -5,7 +5,7 @@ import type { ParticipantDto } from "./participant.dto";
  * 해당 서비스 내 필요한 형태로 가공된 데이터
  */
 export interface MatchParticipantWithStats extends ParticipantDto {
-  kda: string;
+  kda: number;
   teamKills: number;
   killParticipation: number;
   csCount: number;
