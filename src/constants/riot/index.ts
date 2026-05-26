@@ -11,3 +11,7 @@ export { SPELL_TYPE } from "./spell-type";
 export { PERKS_TYPE } from "./perks-type";
 export { RANK_EMBLEM_SRC } from "./rank-emblem";
 export { DATA_DRAGON_VERSION } from "./common";
+
+export { POSITION_ICON_BY_POSITION, POSITION_ICON_LIST } from "./position-icon";
+
+export type { LanePosition } from "./position-icon";

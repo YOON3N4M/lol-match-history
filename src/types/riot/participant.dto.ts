@@ -34,4 +34,5 @@ export interface ParticipantDto {
   turretKills: number;
   championId: number;
   puuid: string;
+  individualPosition: "TOP" | "JUNGLE" | "MIDDLE" | "BOTTOM" | "UTILITY" | "Invalid";
 }
