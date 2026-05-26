@@ -18,8 +18,8 @@ export default async function MatchHistorySection(props: MatchHistorySectionProp
 
   return (
     <section className=" space-y-2">
-      <SummaryWidget />
-      <MatchDetailWidget puuid={searchedParticipantPuuid} matchDetailList={matchDetailList ?? []} />
+      <SummaryWidget puuid={searchedParticipantPuuid} matchDetailList={matchDetailList} />
+      <MatchDetailWidget puuid={searchedParticipantPuuid} matchDetailList={matchDetailList} />
     </section>
   );
 }

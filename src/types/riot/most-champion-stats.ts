@@ -7,5 +7,5 @@ export interface MostChampionStats {
   kdaAverage: string;
   winCount: number;
   loseCount: number;
-  winRate: number;
+  winRate: string;
 }

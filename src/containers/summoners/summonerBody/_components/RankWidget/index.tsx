@@ -27,7 +27,7 @@ function RankItem({ type, league }: { type: "솔로랭크" | "자유랭크"; lea
         {!league && <span className="font-bold text-gray-300">Unranked</span>}
       </div>
       {league && (
-        <div className="border-t border-gray-200 py-8 px-4 flex items-center">
+        <div className="border-t py-8 px-4 flex items-center">
           <div className="w-[72px] aspect-square bg-gray-100 rounded-full flex justify-center items-center">
             <img
               className="object-contain"
