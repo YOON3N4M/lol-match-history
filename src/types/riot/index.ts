@@ -7,3 +7,4 @@ export type { MatchMetadataDto } from "./match-metadata.dto";
 export type { ParticipantDto } from "./participant.dto";
 export type { PerksDto } from "./perks.dto";
 export type { SummonerDto } from "./summoner.dto";
+export type { MostChampionStats } from "./most-champion-stats";
