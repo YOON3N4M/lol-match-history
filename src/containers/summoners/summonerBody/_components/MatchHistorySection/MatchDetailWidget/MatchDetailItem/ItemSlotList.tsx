@@ -13,11 +13,18 @@ export default function ItemSlotList(props: ItemSlotListProps) {
 
   const hasItem = (itemId: number) => itemId !== 0;
   const matchResultStyle = MATCH_RESULT_STYLE[matchResult];
+  const isWardSlot = (_index: number) => _index === itemList.length - 1;
 
   return (
     <div className="flex gap-0.5">
-      {itemList.map((item) => (
-        <div className={cn("size-[21px] rounded overflow-hidden", matchResultStyle.itemSlotBg)}>
+      {itemList.map((item, index) => (
+        <div
+          className={cn(
+            "size-[21px] rounded overflow-hidden",
+            matchResultStyle.itemSlotBg,
+            isWardSlot(index) && "rounded-full!",
+          )}
+        >
           {hasItem(item) && (
             <div className="">
               <img width={32} height={32} src={ITEM_ICON_URL(item)} />
