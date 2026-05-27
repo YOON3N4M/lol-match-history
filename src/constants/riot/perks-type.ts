@@ -13,6 +13,7 @@ export const PERKS_TYPE: Record<number, string> = {
   8214: "Sorcery/SummonAery/SummonAery",
   8229: "Sorcery/ArcaneComet/ArcaneComet",
   8230: "Sorcery/PhaseRush/PhaseRush",
+  8992: "Sorcery/DeathfireTouch/DEATHFIRE_TOUCH_KEYSTONE",
   8437: "Resolve/GraspOfTheUndying/GraspOfTheUndying",
   8439: "Resolve/VeteranAftershock/VeteranAftershock",
   8465: "Resolve/Guardian/Guardian",
