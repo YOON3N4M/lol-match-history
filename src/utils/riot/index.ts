@@ -1,8 +1,10 @@
 export { fixedChampionName, translateKorChampionName } from "./champion";
 export {
+  formatNumberWithComma,
   getCS,
   getKDA,
   getKDADisplay,
+  getKdaTextColor,
   getKillParticipationRate,
   getMostChampions,
   getMostChampionsStats,

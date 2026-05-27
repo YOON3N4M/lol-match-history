@@ -1,4 +1,8 @@
-import type { MatchParticipantWithStats, MatchParticipantsSummary, ParticipantDto } from "@/types/riot";
+import type {
+  MatchParticipantWithStats,
+  MatchParticipantsSummary,
+  ParticipantDto,
+} from "@/types/riot";
 import { getCS, getKDA, getKillParticipationRate } from "./match-stats";
 
 const BLUE_TEAM_ID = 100;
@@ -8,11 +12,26 @@ export function createMatchParticipantsSummary(
   participants: ParticipantDto[],
   gameDuration?: number,
 ): MatchParticipantsSummary {
-  const teamKillsByTeamId = participants.reduce<Record<number, number>>((acc, participant) => {
-    acc[participant.teamId] = (acc[participant.teamId] ?? 0) + participant.kills;
+  const teamKillsByTeamId = participants.reduce<Record<number, number>>(
+    (acc, participant) => {
+      acc[participant.teamId] =
+        (acc[participant.teamId] ?? 0) + participant.kills;
 
-    return acc;
-  }, {});
+      return acc;
+    },
+    {},
+  );
+
+  const maxDealtToChampions = participants.reduce(
+    (maxDealt, participant) =>
+      Math.max(maxDealt, participant.totalDamageDealtToChampions),
+    0,
+  );
+
+  const maxDamageTaken = participants.reduce(
+    (maxTaken, participant) => Math.max(maxTaken, participant.totalDamageTaken),
+    0,
+  );
 
   const summary: MatchParticipantsSummary = {
     participants: [],
@@ -23,13 +42,31 @@ export function createMatchParticipantsSummary(
 
   participants.forEach((participant) => {
     const teamKills = teamKillsByTeamId[participant.teamId] ?? 0;
-    const cs = getCS(participant.neutralMinionsKilled, participant.totalMinionsKilled, gameDuration && gameDuration);
+    const totalDealtToChampions = participant.totalDamageDealtToChampions;
+    const cs = getCS(
+      participant.neutralMinionsKilled,
+      participant.totalMinionsKilled,
+      gameDuration && gameDuration,
+    );
 
     const participantWithStats: MatchParticipantWithStats = {
       ...participant,
       kda: getKDA(participant.kills, participant.deaths, participant.assists),
       teamKills,
-      killParticipation: getKillParticipationRate(teamKills, participant.kills, participant.assists),
+      killParticipation: getKillParticipationRate(
+        teamKills,
+        participant.kills,
+        participant.assists,
+      ),
+      totalDealtToChampions,
+      dealtParticipation: getDealtParticipationRate(
+        maxDealtToChampions,
+        totalDealtToChampions,
+      ),
+      takenParticipation: getTakenParticipationRate(
+        maxDamageTaken,
+        participant.totalDamageTaken,
+      ),
       csCount: cs.cs,
       csPerMinute: cs.csPerMinute,
       itemList: [
@@ -56,4 +93,26 @@ export function createMatchParticipantsSummary(
   });
 
   return summary;
+}
+
+function getDealtParticipationRate(
+  maxDealtToChampions: number,
+  targetDealtToChampions: number,
+) {
+  if (maxDealtToChampions === 0) {
+    return 0;
+  }
+
+  return Math.round((targetDealtToChampions / maxDealtToChampions) * 100);
+}
+
+function getTakenParticipationRate(
+  maxDamageTaken: number,
+  targetDamageTaken: number,
+) {
+  if (maxDamageTaken === 0) {
+    return 0;
+  }
+
+  return Math.round((targetDamageTaken / maxDamageTaken) * 100);
 }

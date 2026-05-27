@@ -1,6 +1,15 @@
 import type { MatchDto, ParticipantDto } from "@/types/riot";
 import { roundTo } from "../math";
 
+const COMMA_NUMBER_FORMATTER = new Intl.NumberFormat("en-US");
+
+/**
+ * 숫자에 천 단위 콤마를 붙여 UI 표시용 문자열로 반환
+ */
+export function formatNumberWithComma(value: number) {
+  return COMMA_NUMBER_FORMATTER.format(value);
+}
+
 /**
  * 승률을 반환
  */
@@ -56,7 +65,15 @@ export function getKDA(kills: number, deaths: number, assists: number): number {
 export function getKDADisplay(kda: number) {
   if (kda < 0) return "Perfect";
   if (kda == 0) return "0.00";
-  if (kda > 0) return kda;
+  if (kda > 0) return `${kda}:1`;
+}
+
+export function getKdaTextColor(kda: number) {
+  if (kda < 0 || kda >= 5) return "text-orange-500"; // Perfect 포함
+  if (kda >= 4) return "text-main-500";
+  if (kda >= 3) return "text-teal-500";
+
+  return "text-gray-600";
 }
 
 /**

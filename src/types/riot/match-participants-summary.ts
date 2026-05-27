@@ -8,6 +8,9 @@ export interface MatchParticipantWithStats extends ParticipantDto {
   kda: number;
   teamKills: number;
   killParticipation: number;
+  totalDealtToChampions: number;
+  dealtParticipation: number;
+  takenParticipation: number;
   csCount: number;
   csPerMinute: string | null;
   itemList: number[];

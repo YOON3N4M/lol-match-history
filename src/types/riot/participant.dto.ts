@@ -25,6 +25,7 @@ export interface ParticipantDto {
   champLevel: number;
   physicalDamageDealtToChampions: number;
   magicDamageDealtToChampions: number;
+  totalDamageDealtToChampions: number;
   totalDamageTaken: number;
   wardsKilled: number;
   wardsPlaced: number;
@@ -34,5 +35,11 @@ export interface ParticipantDto {
   turretKills: number;
   championId: number;
   puuid: string;
-  individualPosition: "TOP" | "JUNGLE" | "MIDDLE" | "BOTTOM" | "UTILITY" | "Invalid";
+  individualPosition:
+    | "TOP"
+    | "JUNGLE"
+    | "MIDDLE"
+    | "BOTTOM"
+    | "UTILITY"
+    | "Invalid";
 }

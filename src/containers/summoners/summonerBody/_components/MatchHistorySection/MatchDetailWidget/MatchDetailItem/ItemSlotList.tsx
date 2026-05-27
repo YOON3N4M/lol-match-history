@@ -20,7 +20,7 @@ export default function ItemSlotList(props: ItemSlotListProps) {
       {itemList.map((item, index) => (
         <div
           className={cn(
-            "size-[21px] rounded overflow-hidden",
+            "size-[21px] overflow-hidden rounded",
             matchResultStyle.itemSlotBg,
             isWardSlot(index) && "rounded-full!",
           )}
