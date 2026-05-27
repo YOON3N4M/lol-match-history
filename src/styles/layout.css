@@ -1,9 +1,7 @@
-@layer components {
-  .content-layout {
-    @apply max-w-layout mx-auto w-full;
-  }
+@utility content-layout {
+  @apply max-w-layout mx-auto w-full;
+}
 
-  .x-center {
-    @apply left-1/2 -translate-x-1/2;
-  }
+@utility x-center {
+  @apply left-1/2 -translate-x-1/2;
 }
