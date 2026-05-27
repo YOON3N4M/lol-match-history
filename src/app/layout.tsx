@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import "../styles/globals.css";
 import Header from "./_common/Header";
+import Footer from "./_common/Footer";
 
 export const metadata: Metadata = {
   title: "33.GG",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
