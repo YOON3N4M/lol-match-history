@@ -4,7 +4,7 @@ import { handleRiotId } from "@/utils/riot";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, SubmitEvent, useState } from "react";
 
-export default function MainSearch() {
+export default function MainSummonerSearch() {
   const [keyword, setKeyword] = useState("");
 
   const router = useRouter();

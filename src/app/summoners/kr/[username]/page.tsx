@@ -1,4 +1,5 @@
 import SummonersContainer from "@/containers/summoners";
+import { upsertRecentSearch } from "@/service/firebase-admin/recent-searches.service";
 import { getAccountByRiotId } from "@/service/riot/asia/account.service";
 import { getLeagueEntry } from "@/service/riot/kr/league.service";
 import { getSummonerByPuuid } from "@/service/riot/kr/summoner.service";
@@ -22,15 +23,20 @@ export default async function SummonersPage({ params }: { params: Promise<{ user
   }
   const { puuid } = account;
 
-  /**
-   * 소환사 정보
-   */
-  const summoner = await getSummonerByPuuid(puuid);
+  const [summoner, leagueEntry] = await Promise.all([
+    getSummonerByPuuid(puuid),
+    getLeagueEntry(puuid),
+  ]);
 
-  /**
-   * 소환사 리그(랭크) 정보
-   */
-  const leagueEntry = await getLeagueEntry(puuid);
+  try {
+    await upsertRecentSearch({
+      account,
+      summoner,
+      leagueEntry,
+    });
+  } catch (error) {
+    console.error("최근 검색 유저 저장에 실패했습니다.", error);
+  }
 
   return <SummonersContainer account={account} summoner={summoner} leagueEntry={leagueEntry} />;
 }

@@ -1,11 +1,11 @@
-"use client";
-
-import MainSearch from "./MainSearch";
+import MainSummonerSearch from "./MainSummonerSearch";
+import RecentSearchedSummonerList from "./RecentSearchedSummonerList";
 
 export default function MainContainer() {
   return (
-    <main className="min-h-screen flex flex-col bg-[#5383e8]">
-      <MainSearch />
+    <main className="flex min-h-screen flex-col bg-[#5383e8]">
+      <MainSummonerSearch />
+      <RecentSearchedSummonerList />
     </main>
   );
 }
