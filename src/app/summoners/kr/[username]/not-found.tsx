@@ -11,7 +11,7 @@ export default function SummonerNotFound() {
   const { name, tag } = handleRiotId(username, "-");
 
   return (
-    <div>
+    <div className="min-h-screen">
       <div className="content-layout flex flex-col items-center gap-10 pt-10">
         <h2 className="text-2xl font-bold">
           Korea 지역 내 &quot;
