@@ -96,7 +96,6 @@ export default function SummaryWidget(props: SummaryWidgetProsp) {
     (_participant) => _participant.individualPosition,
   );
 
-  console.log(groupByPosition);
   return (
     <div className="rounded bg-white">
       <div className="flex items-center justify-between">
