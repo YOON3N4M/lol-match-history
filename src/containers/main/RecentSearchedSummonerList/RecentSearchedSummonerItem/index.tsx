@@ -20,6 +20,7 @@ export default function RecentSearchedSummonerItem(props: {
     <Link
       href={`/summoners/kr/${encodeURIComponent(`${user.gameName}-${user.tagLine}`)}`}
       className="relative flex w-full items-center border-b px-5 py-2.5 hover:bg-[#f7f7f9]"
+      prefetch={false}
     >
       {/* 아이콘, 닉네임 */}
       <div className="flex w-[300px] items-center">
