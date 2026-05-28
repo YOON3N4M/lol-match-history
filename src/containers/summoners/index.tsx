@@ -6,13 +6,18 @@ interface SummonersContainerProps {
   account: RiotAccountDto;
   summoner: SummonerDto;
   leagueEntry: LeagueEntryDto[];
+  refreshCooldownExpiresAt: number | null;
 }
 export default function SummonersContainer(props: SummonersContainerProps) {
-  const { account, summoner, leagueEntry } = props;
+  const { account, summoner, leagueEntry, refreshCooldownExpiresAt } = props;
 
   return (
     <div className="min-h-screen">
-      <SummonerHead account={account} summoner={summoner} />
+      <SummonerHead
+        account={account}
+        summoner={summoner}
+        refreshCooldownExpiresAt={refreshCooldownExpiresAt}
+      />
       <SummonerBody
         account={account}
         summoner={summoner}

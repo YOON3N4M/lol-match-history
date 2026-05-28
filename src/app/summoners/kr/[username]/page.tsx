@@ -1,5 +1,6 @@
 import SummonersContainer from "@/containers/summoners";
 import { upsertRecentSearch } from "@/service/firebase-admin/recent-searches.service";
+import { getRiotRefreshCooldown } from "@/service/firebase-admin/riot-refresh-cooldown.service";
 import { getAccountByRiotId } from "@/service/riot/asia/account.service";
 import { getLeagueEntry } from "@/service/riot/kr/league.service";
 import { getSummonerByPuuid } from "@/service/riot/kr/summoner.service";
@@ -31,9 +32,10 @@ export default async function SummonersPage({
 
   const { puuid } = account;
 
-  const [summoner, leagueEntry] = await Promise.all([
+  const [summoner, leagueEntry, refreshCooldown] = await Promise.all([
     getSummonerByPuuid(puuid),
     getLeagueEntry(puuid),
+    getRiotRefreshCooldown(puuid),
   ]);
 
   try {
@@ -51,6 +53,7 @@ export default async function SummonersPage({
       account={account}
       summoner={summoner}
       leagueEntry={leagueEntry}
+      refreshCooldownExpiresAt={refreshCooldown.cooldownExpiresAt}
     />
   );
 }
