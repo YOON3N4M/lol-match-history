@@ -1,5 +1,5 @@
 @utility content-layout {
-  @apply max-w-layout mx-auto w-full;
+  @apply mx-auto box-border w-full max-w-layout;
 }
 
 @utility x-center {

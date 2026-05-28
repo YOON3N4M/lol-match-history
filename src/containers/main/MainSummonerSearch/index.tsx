@@ -9,7 +9,9 @@ export default function MainSummonerSearch() {
 
   const router = useRouter();
 
-  function handleChange(event: ChangeEvent<HTMLInputElement, HTMLInputElement>) {
+  function handleChange(
+    event: ChangeEvent<HTMLInputElement, HTMLInputElement>,
+  ) {
     setKeyword(event.target.value);
   }
 
@@ -22,9 +24,9 @@ export default function MainSummonerSearch() {
   }
 
   return (
-    <div className="w-[800px] h-[60px] bg-white rounded-[30px] mx-auto mt-24 px-4 py-2 ">
+    <div className="mx-auto mt-24 h-[60px] w-full max-w-[800px] rounded-[30px] bg-white px-4 py-2">
       <form onSubmit={handleSubmit} className="flex items-center">
-        <div className="flex-1 max-w-[234px] flex-col flex gap-1 pl-4">
+        <div className="flex max-w-[234px] flex-1 flex-col gap-1 pl-4">
           <span className="text-xs font-bold">Region</span>
           <span className="text-sm text-gray-400">Korea</span>
         </div>
@@ -36,7 +38,7 @@ export default function MainSummonerSearch() {
             placeholder="플레이어 이름 + #KR1"
           />
         </div>
-        <button className="font-extrabold text-main-500 text-2xl" type="submit">
+        <button className="text-2xl font-extrabold text-main-500" type="submit">
           .GG
         </button>
       </form>
