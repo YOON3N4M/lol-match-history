@@ -1,3 +1,7 @@
 # https://www.robotstxt.org/robotstxt.html
+User-agent: GoogleOther
+Disallow: /summoners/
+Disallow: /api/
+
 User-agent: *
-Disallow:
+Disallow: /api/
