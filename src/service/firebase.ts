@@ -91,8 +91,8 @@ async function postUserDocumentOnDB(
   console.log(riotAccount);
 
   const userDocumentRef: UserDocument = {
-    accountId: summonerInfo.accountId,
-    id: summonerInfo.id,
+    ...(summonerInfo.accountId ? { accountId: summonerInfo.accountId } : {}),
+    ...(summonerInfo.id ? { id: summonerInfo.id } : {}),
     name: riotAccount.gameName,
     nameRe: riotAccount.gameName.replace(/ /g, ""),
     profileIconId: summonerInfo.profileIconId,

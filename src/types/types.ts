@@ -10,8 +10,8 @@ export interface RiotAccount {
 }
 
 export interface Summoner {
-  accountId: string;
-  id: string;
+  accountId?: string;
+  id?: string;
   name: string;
   profileIconId: number;
   puuid: string;
@@ -72,8 +72,8 @@ export type MatchInfoArray = Array<MatchInfoObj> | undefined[] | undefined;
 
 //firebase
 export interface UserDocument {
-  accountId: string;
-  id: string;
+  accountId?: string;
+  id?: string;
   name: string;
   nameRe?: string;
   profileIconId: number;
