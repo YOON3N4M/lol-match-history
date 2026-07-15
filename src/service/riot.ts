@@ -60,7 +60,7 @@ async function getRiotsSummonerData(riotId: RiotId) {
   try {
     const accountRes: RiotAccount = await getAccountByNextApi(riotId);
     const summonerRes: Summoner = await getSummonerByPuuid(accountRes.puuid);
-    const leagueRes = await getLeagueInfo(summonerRes.id);
+    const leagueRes = await getLeagueInfo(summonerRes.puuid);
     const matchIdRes: string[] = await getMatchId(summonerRes.puuid, 20);
     return { accountRes, summonerRes, leagueRes, matchIdRes };
   } catch (err) {
