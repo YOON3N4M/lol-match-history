@@ -7,6 +7,9 @@ import { getSummonerByPuuid } from "@/service/riot/kr/summoner.service";
 import { handleRiotId } from "@/utils/riot";
 import { notFound } from "next/navigation";
 
+// Firestore/Riot 응답이 지연돼도 함수가 기본 최대 시간(300초)까지 붙잡혀 있지 않도록 제한
+export const maxDuration = 20;
+
 /**
  * 라이엇 계정, 소환사 정보, 소환사 랭크 조회는 페이지를 위한
  * 가장 필수적인 정보이기 때문에 해당 데이터들을 await

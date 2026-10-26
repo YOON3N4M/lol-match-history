@@ -18,6 +18,7 @@ const REFRESH_MATCH_COUNT = 20;
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+export const maxDuration = 20;
 
 export async function POST(request: NextRequest) {
   const refreshBody = await parseRefreshBody(request);
